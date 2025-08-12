@@ -27,63 +27,67 @@
     <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700&display=swap" rel="stylesheet"> -->
 
     
-  
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,900;1,600&display=swap" rel="stylesheet">
+
 	  
 	
 	
-    <!-- Carousel -->
-    <script>
-      $(document).ready(function() {
-        $('#carousel-light').on('slid.bs.carousel', function () {
-          $('video').each(function () {
-            if ($(this).closest('.item').hasClass('active')) {
-              this.play();
-            } else {
-              this.pause();
-            }
-          });
-        });
-      });
-    </script>
+    
 
+<!-- === Signature Hero (Drop‑in) START === -->
+<style>
+	
 
+  /* Modul kapselt sich selbst; keine globalen body/html-Änderungen. */
+  .hb-hero-section{position:relative;isolation:isolate;display:grid;place-items:center;
+    /* nav-Höhe kompensieren, sonst "klebt" der Inhalt oben unter der Fixed-Nav */
+    --navH: 70px; /* bei Bedarf an deine Navbar-Höhe anpassen */
+    height:min(calc(100svh - var(--navH)),800px) !important; max-height:800px;
+    margin:0 !important; padding:var(--navH) 0 0 0 !important; /* top-padding = Navbar */
+    background:linear-gradient(135deg,#123f87,#8b2570);overflow:hidden}
+  .hb-hero-section *{box-sizing:border-box}
+  .hb-hero-section p{margin:0}
 
-    <!-- Video -->
-    <script>
-      $(document).ready(function() {
-        document.querySelector('.video-thumbnail-wrapper').addEventListener('click', function () {
-          this.innerHTML = `
-            <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
-              <iframe src="https://www.youtube.com/embed/y_ONEJooBqQ?autoplay=1&muted=1"
-                      style="position:absolute;top:0;left:0;width:100%;height:100%;"
-                      frameborder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      referrerpolicy="strict-origin-when-cross-origin"
-                      allowfullscreen>
-              </iframe>
-            </div>`;
-        });
-      });
-    </script>
+  /* Stellschrauben (nur für dieses Modul) */
+  .hb-hero{--typeScale:1.40; /* globaler Faktor */
+           --t1:#207cfa; --t2:#ff3cd0;
+           --brandMin:3.25rem; --brandVW:14vw; --brandMax:8rem;
+           --aiX:0em; --aiY:.11em; --tagX:.05em; --tagY:.13em; --subX:.06em; --subY:-.05em;
+           --tagMin:1rem; --tagVW:3.5vw; --tagMax:2rem;
+           --subMin:.82rem; --subVW:1.9vw; --subMax:1.1rem;
+           --subGap:.1ch; --subTrack:.01em;
+           --subWidthFactor:1.35; /* Desktop: Subline breiter als BRAND */
+           --tagMobile:.90; --subMobile:.50}
 
+  .hb-hero{position:relative;width:min(92vw,700px);height:100%;display:flex;flex-direction:column;
+    justify-content:center;align-items:center;text-align:center;font-family:Montserrat,'Hanken Grotesk',sans-serif;opacity:0}
+  .hb-hero.show{animation:hbFade .7s ease forwards}@keyframes hbFade{to{opacity:1}}
 
+  .hb-brand{margin:0;white-space:nowrap;line-height:1;font-weight:900;color:var(--t1);
+    font-size:calc(clamp(var(--brandMin),var(--brandVW),var(--brandMax))*var(--typeScale))}
+  .hb-ai{position:absolute;left:0;top:0;color:var(--t2);opacity:0;pointer-events:none;transition:opacity .8s}
+  .hb-ai.show{opacity:1}
 
-<style>	
-	#about  #focus #verlauf {
-  background: linear-gradient(
-    to bottom,
-    rgba(32, 124, 250, 0.2) 0%,
-    white 100%
-  );
-}
-/* gilt nur innerhalb der Section */
-</style>	  
+  .hb-tagline{position:absolute;left:0;top:0;margin:0;font-weight:900;color:var(--t2);
+    white-space:nowrap;pointer-events:none;z-index:2;
+    font-size:calc(clamp(var(--tagMin),var(--tagVW),var(--tagMax))*var(--typeScale)*var(--tagMobile))}
+
+  .hb-subline{position:absolute;left:0;top:0;margin:0;font-weight:600;font-style:italic;color:#fff;
+    white-space:nowrap;pointer-events:none;z-index:1;display:flex;column-gap:var(--subGap);letter-spacing:var(--subTrack);
+    font-size:calc(clamp(var(--subMin),var(--subVW),var(--subMax))*var(--typeScale)*var(--subMobile))}
+  .hb-subline>span{display:inline-block}
+
+  @media (max-width:600px){ .hb-hero{--brandMin:3.6rem; --brandVW:20vw} }
+</style>
+	  
+	  
+	  
+	  
+	  
   </head>
 
   <body class="top" id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-	  <div style="background:#207CFA;padding:5px;text-align:center;font-weight:700;">
-  index_heroneu
-</div>
+
 
     <!-- Navigation -->
     <nav class="navbar navbar-Concept navbar-center navbar-custom navbar-fixed-top nav-bright">
@@ -120,9 +124,18 @@
     </nav>
 
 	  
-	  
-	  
-	  
+<section class="hb-hero-section" id="hb-hero">
+	<container>
+  <div class="hb-hero" id="hbHero">
+    <p class="hb-tagline" id="hbTag">SHAPE YOUR BRAND</p>
+    <h1 class="hb-brand" id="hbBrand">BRAND<span class="hb-ai" id="hbAI">AI</span></h1>
+    <p class="hb-subline" id="hbSub" aria-label="BRANDSTRATEGY BRANDDESIGN AI-WORKFLOW">
+      <span>BRANDSTRATEGY</span><span>BRANDDESIGN</span><span>AI&#8209;WORKFLOW</span>
+    </p>
+  </div>
+		</container>
+</section>
+
 	  
     <!--  HIER SOLL DIE NEUE HERO HIN -->
 	  
@@ -813,21 +826,90 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/main.js"></script>
 
+<!-- Carousel -->
+    <script>
+      $(document).ready(function() {
+        $('#carousel-light').on('slid.bs.carousel', function () {
+          $('video').each(function () {
+            if ($(this).closest('.item').hasClass('active')) {
+              this.play();
+            } else {
+              this.pause();
+            }
+          });
+        });
+      });
+    </script>
+
+
+
+    <!-- Video -->
+    <script>
+      $(document).ready(function() {
+        document.querySelector('.video-thumbnail-wrapper').addEventListener('click', function () {
+          this.innerHTML = `
+            <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
+              <iframe src="https://www.youtube.com/embed/y_ONEJooBqQ?autoplay=1&muted=1"
+                      style="position:absolute;top:0;left:0;width:100%;height:100%;"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerpolicy="strict-origin-when-cross-origin"
+                      allowfullscreen>
+              </iframe>
+            </div>`;
+        });
+      });
+    </script>
 	  
 	  
-	  
-	  
-	  
+<script>
+(function(){
+  var hero=document.getElementById('hbHero'), brand=document.getElementById('hbBrand'),
+      ai=document.getElementById('hbAI'), tag=document.getElementById('hbTag'), sub=document.getElementById('hbSub');
 
-   
-	  
+  function sizeBrandTo(r){ // mobil: ~96% der Wrapperbreite
+    var small=matchMedia('(max-width:600px)').matches; if(!small){ brand.style.fontSize=''; return; }
+    var h=hero.getBoundingClientRect(); if(!h.width) return;
+    brand.style.fontSize=''; var fs=parseFloat(getComputedStyle(brand).fontSize)||1;
+    var w=brand.getBoundingClientRect().width||1; brand.style.fontSize=(fs*(h.width*(r||0.96)/w))+'px';
+  }
 
+  function align(){
+	  var cs = getComputedStyle(brand);
+ai.style.fontSize  = cs.fontSize;
+ai.style.lineHeight= cs.lineHeight;
+ai.style.fontWeight= cs.fontWeight;
+    var fs=parseFloat(getComputedStyle(brand).fontSize)||1, txt=brand.firstChild, i=brand.textContent.indexOf('A');
+    if(!(txt&&txt.nodeType===3) || i<0) return;
+    var r=document.createRange(); r.setStart(txt,i); r.setEnd(txt,i+1);
+    var a=r.getBoundingClientRect(), h=hero.getBoundingClientRect(), b=brand.getBoundingClientRect();
+    var s=getComputedStyle(hero);
 
+    ai.style.left=(a.left-h.left+(parseFloat(s.getPropertyValue('--aiX'))||0)*fs)+'px';
+    ai.style.top =(a.top -h.top +(parseFloat(s.getPropertyValue('--aiY'))||0)*fs)+'px';
 
+    var tx=(parseFloat(s.getPropertyValue('--tagX'))||0)*fs, ty=(parseFloat(s.getPropertyValue('--tagY'))||0)*fs,
+        tH=tag.getBoundingClientRect().height;
+    tag.style.left=(b.left-h.left+tx)+'px'; tag.style.top=(b.top-h.top - tH + ty)+'px';
 
+    var sx=(parseFloat(s.getPropertyValue('--subX'))||0)*fs, sy=(parseFloat(s.getPropertyValue('--subY'))||0)*fs;
+    sub.style.left=(b.left-h.left+sx)+'px';
+    sub.style.top =(b.bottom-h.top+sy)+'px';
+    /* Desktop darf breiter werden, ohne rechts zu bluten */
+    var factor = matchMedia('(max-width:600px)').matches ? 1 : (parseFloat(s.getPropertyValue('--subWidthFactor'))||1);
+    var maxRight = h.width - (b.left - h.left); /* verfügbar bis rechter Rand */
+    var wanted = b.width * factor;
+    sub.style.width = Math.min(wanted, maxRight) + 'px';
+  }
 
+  function run(){ sizeBrandTo(0.96); align(); }
+  function init(){ run(); document.getElementById('hbHero').classList.add('show'); setTimeout(function(){ ai.classList.add('show'); },1400); }
 
-
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(init); } else { window.addEventListener('load', init); }
+  window.addEventListener('resize', run); new ResizeObserver(run).observe(hero);
+})();
+</script>
+<!-- === Signature Hero (Drop‑in) END === -->
 
 
 
