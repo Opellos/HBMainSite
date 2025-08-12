@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hero</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg1: #123f87;
+    --bg2: #8b2570;
+    --t1: #207cfa;
+    --t2: #ff3cd0;
+    /* justierbare Offsets für die AI-Position */
+    --aiOffsetX: 0.0em; /* nach links schieben; skaliert mit Schriftgröße */
+    --aiOffsetY:  0.11 em;     /* vertikales Finetuning bei Bedarf */
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, var(--bg1), var(--bg2));
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .hero {
+    position: relative;
+    text-align: center;
+    width: min(90vw, 700px);
+    height: min(100vh, 800px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .text-layer {
+    line-height: 1;
+    letter-spacing: 0em;
+    font-weight: 900;
+    font-size: clamp(3rem, 10vw, 8rem);
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  .brand { color: var(--t1); }
+
+  .ai {
+    position: absolute;
+    left: 0; /* feste Referenz */
+    top: 0;  /* feste Referenz */
+    color: var(--t2);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s ease;
+  }
+
+  .ai.show { opacity: 1; }
+</style>
+</head>
+<body>
+  <div class="hero" id="hero">
+    <h1 class="text-layer brand" id="brand">BRAND<span id="ai" class="ai">AI</span></h1>
+  </div>
+
+<script>
+  (function() {
+    const brand = document.getElementById('brand');
+    const ai = document.getElementById('ai');
+    const hero = document.getElementById('hero');
+
+    function alignAI() {
+      const cs = getComputedStyle(brand);
+      ai.style.fontSize = cs.fontSize;
+      ai.style.letterSpacing = cs.letterSpacing;
+      ai.style.lineHeight = cs.lineHeight;
+      ai.style.fontWeight = cs.fontWeight;
+
+      const textNode = brand.firstChild;
+      const indexA = brand.textContent.indexOf('A');
+      if (indexA === -1) return;
+      const range = document.createRange();
+      range.setStart(textNode, indexA);
+      range.setEnd(textNode, indexA + 1);
+
+      const aRect = range.getBoundingClientRect();
+      const heroRect = hero.getBoundingClientRect();
+
+      // Offsets aus CSS-Variablen (em-basiert, skaliert mit Font-Size)
+      const fs = parseFloat(cs.fontSize);
+      const rootCS = getComputedStyle(document.documentElement);
+      const offXem = parseFloat(rootCS.getPropertyValue('--aiOffsetX')) || 0;
+      const offYem = parseFloat(rootCS.getPropertyValue('--aiOffsetY')) || 0;
+      const offX = offXem * fs;
+      const offY = offYem * fs;
+
+      ai.style.left = (aRect.left - heroRect.left + offX) + 'px';
+      ai.style.top  = (aRect.top  - heroRect.top  + offY) + 'px';
+    }
+
+    function init() {
+      alignAI();
+      setTimeout(() => ai.classList.add('show'), 500);
+    }
+
+    // bei Font-Load und Größenänderungen neu ausrichten
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(init);
+    } else {
+      window.addEventListener('load', init);
+    }
+    window.addEventListener('resize', alignAI);
+
+    // Reagiert auch auf Container-Änderungen
+    const ro = new ResizeObserver(alignAI);
+    ro.observe(hero);
+  })();
+</script>
+</body>
+</html>
