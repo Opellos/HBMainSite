@@ -4,54 +4,31 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Signature Hero – Standalone</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,900;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
 <style>
-  /* =========================================================
-     Signature Hero (Standalone)
-     – Vollbreiter Verlauf, gekapselter Inhalt, max 800px Höhe
-     – BRAND + AI-Overlay + Tagline + Subline
-     – Keine Kopplungslogik außer Positionierung & Mobile-Scaling
-     Stellschrauben sind unten klar kommentiert.
-  ========================================================= */
-
   :root {
-    /* Farben */
-    --bg1: #123f87;  /* Verlauf Start */
-    --bg2: #8b2570;  /* Verlauf Ende  */
-    --t1: #207cfa;   /* BRAND */
-    --t2: #ff3cd0;   /* AI + Tagline */
-
-    /* BRAND Größe (wirkt auch auf AI-Position) */
-    --brandMin: 3.25rem;  /* kleinster Wert */
-    --brandVW: 14vw;      /* fluid über Viewport */
-    --brandMax: 8rem;     /* Obergrenze */
-
-    /* Positions-Offsets relativ zur BRAND-Schrift (em) */
-    --aiOffsetX: 0.00em;  /* AI horizontal  */
-    --aiOffsetY: 0.11em;  /* AI vertikal    */
-    --tagOffsetX: 0.05em; /* Tagline nach links/rechts */
-    --tagOffsetY: 0.13em; /* Tagline nach oben/unten   */
-    --subOffsetX: 0.06em; /* Subline nach links/rechts */
-    --subOffsetY: -0.05em;/* Subline nach oben/unten   */
-
-    /* Subline Typo */
-    --subTracking: 0.01em; /* Laufweite */
-    --subMinGap: 0.1ch;    /* Abstand zwischen Items */
-
-    /* Schriftgrößen – rein per CSS (keine JS-Kopplung) */
-    --tagMin: 1rem;   --tagVW: 3.5vw; --tagMax: 2rem;     /* Tagline Desktop */
-    --subMin: 0.82rem;--subVW: 1.9vw; --subMax: 1.1rem;   /* Subline Desktop */
-
-    /* GLOBAL: zentraler Typo-Faktor (1.00 = 100%).
-       → Hier einmal ändern, wirkt auf BRAND, Tagline, Subline. */
-    --typeScale: 1.40; /* +40% */
-
-    /* Mobile-Scale-Regler (werden unten im @media gesetzt) */
-    --tagMobileScale: 1; /* 1 = 100% */
-    --subMobileScale: 1; /* 1 = 100% */
+    --bg1: #123f87;
+    --bg2: #8b2570;
+    --t1: #207cfa;
+    --t2: #ff3cd0;
+    --brandMin: 3.25rem;
+    --brandVW: 14vw;
+    --brandMax: 8rem;
+    --aiOffsetX: 0.00em;
+    --aiOffsetY: 0.11em;
+    --tagOffsetX: 0.05em;
+    --tagOffsetY: 0.13em;
+    --subOffsetX: 0.06em;
+    --subOffsetY: -0.05em;
+    --subTracking: 0.01em;
+    --subMinGap: 0.5ch;
+    --tagMin: 1.1rem;   --tagVW: 4vw; --tagMax: 2.3rem;
+    --subMin: 0.72rem;--subVW: 1.7vw; --subMax: 1rem;
+    --typeScale: 1.40;
+    --tagMobileScale: 1;
+    --subMobileScale: 1;
   }
 
-  /* Seite */
   html, body { height: 100%; margin: 0; }
   body {
     display: grid; place-items: center;
@@ -59,59 +36,53 @@
     font-family: 'Montserrat', sans-serif;
   }
 
-  /* Hero-Container */
   .hero {
     position: relative;
     width: min(90vw, 700px);
-    height: min(100vh, 800px); /* Max 800px */
+    height: min(100vh, 800px);
     display: flex; flex-direction: column;
     justify-content: center; align-items: center;
     text-align: center;
-    opacity: 0; /* Fade-In Start */
+    opacity: 0;
   }
 
-  /* BRAND */
   .brand {
     color: var(--t1);
-    line-height: 1; font-weight: 900; letter-spacing: 0;
+    line-height: 1; font-weight: 800; letter-spacing: -0.02em;
     font-size: calc(clamp(var(--brandMin), var(--brandVW), var(--brandMax)) * var(--typeScale));
     margin: 0; white-space: nowrap;
   }
 
-  /* AI-Overlay (erscheint verzögert) */
-  .ai { position: absolute; left: 0; top: 0; color: var(--t2); opacity: 0; pointer-events: none; transition: opacity .8s ease; }
+  .ai {
+    position: absolute; left: 0; top: 0; color: var(--t2); opacity: 0; pointer-events: none; transition: opacity .8s ease;
+    font-weight: 800; letter-spacing: -0.02em;
+  }
   .ai.show { opacity: 1; }
 
-  /* Tagline – einzeilig, Größe nur per CSS-Variablen */
   .tagline {
     position: absolute; left: 0; top: 0; margin: 0;
-    font-weight: 900; color: var(--t2); white-space: nowrap; z-index: 3; pointer-events: none;
+    font-weight: 800; color: var(--t2); white-space: nowrap; z-index: 3; pointer-events: none;
     font-size: calc(clamp(var(--tagMin), var(--tagVW), var(--tagMax)) * var(--typeScale) * var(--tagMobileScale));
   }
 
-  /* Subline – einzeilig, flex-verteilt */
   .subline {
     position: absolute; left: 0; top: 0; margin: 0;
     font-weight: 600; font-style: italic; color: #fff; white-space: nowrap; z-index: 2; pointer-events: none;
-    letter-spacing: var(--subTracking); display: flex; flex-wrap: nowrap; justify-content: space-between; column-gap: var(--subMinGap);
+    letter-spacing: var(--subTracking); display: flex; flex-wrap: nowrap; justify-content: flex-start; column-gap: var(--subMinGap);
     font-size: calc(clamp(var(--subMin), var(--subVW), var(--subMax)) * var(--typeScale) * var(--subMobileScale));
   }
   .subline > span { display: inline-block; }
 
-  /* Fade-In des Heros */
   .hero.show { animation: fadeInHero .7s ease forwards; }
   @keyframes fadeInHero { to { opacity: 1; } }
 
-  /* MOBILE – Schrift gezielt kleiner, sonst nichts ändern */
   @media (max-width: 600px) {
     :root {
-      /* BRAND mobil etwas breiter, ohne zu bluten */
       --brandMin: 3.6rem; --brandVW: 20vw;
-      /* >>> HIER mobiler Faktor: Tagline −10 %, Subline −50 % */
-      --tagMobileScale: 0.90; /* Tagline */
-      --subMobileScale: 0.50; /* Subline */
-      /* Optional: geringere Laufweite/Abstände mobil */
-      --subMinGap: 0.08ch; --subTracking: 0.008em;
+      --tagMobileScale: 0.90;
+      --subMobileScale: 0.60;
+      --subMin: 0.82rem; --subVW: 2.2vw; --subMax: 1.05rem;
+      --subMinGap: 0.3ch; --subTracking: 0.008em;
     }
   }
 </style>
@@ -121,12 +92,11 @@
     <p class="tagline" id="tagline">SHAPE YOUR BRAND</p>
     <h1 class="brand" id="brand">BRAND<span id="ai" class="ai">AI</span></h1>
     <p class="subline" id="subline" aria-label="BRANDSTRATEGY BRANDDESIGN AI-WORKFLOW">
-      <span>BRANDSTRATEGY</span>
-      <span>BRANDDESIGN</span>
+      <span>BRANDSTRATEGY - </span>
+      <span>BRANDDESIGN - </span>
       <span>AI&#8209;WORKFLOW</span>
     </p>
   </div>
-
 <script>
 (function(){
   const hero    = document.getElementById('hero');
@@ -135,7 +105,6 @@
   const tagline = document.getElementById('tagline');
   const subline = document.getElementById('subline');
 
-  /* Mobile: BRAND ~96% der Wrapperbreite, verhindert "Bluten" */
   function sizeBrandTo(ratio=0.96){
     const small = matchMedia('(max-width:600px)').matches;
     if(!small){ brand.style.fontSize=''; return; }
@@ -146,11 +115,8 @@
     brand.style.fontSize = (fs * (h.width*ratio / w)) + 'px';
   }
 
-  /* Positioniert AI, Tagline, Subline (keine Größenkopplung) */
   function alignPositions(){
     const cs = getComputedStyle(brand); const fs = parseFloat(cs.fontSize)||1;
-
-    // AI-Overlay exakt auf das "A" setzen
     const text = brand.firstChild; if(!(text && text.nodeType===3)) return;
     const idxA = brand.textContent.indexOf('A'); if(idxA===-1) return;
     const rA = document.createRange(); rA.setStart(text, idxA); rA.setEnd(text, idxA+1);
@@ -175,15 +141,14 @@
     const subY = (parseFloat(root.getPropertyValue('--subOffsetY'))||0) * fs;
     subline.style.left = (brandRect.left - heroRect.left + subX) + 'px';
     subline.style.top  = (brandRect.bottom - heroRect.top + subY) + 'px';
-    subline.style.width = brandRect.width + 'px';
   }
 
   function run(){ sizeBrandTo(0.96); alignPositions(); }
 
   function init(){
     run();
-    hero.classList.add('show');            // Hero Fade-In (0.7s)
-    setTimeout(()=>ai.classList.add('show'), 1400); // AI später einblenden
+    hero.classList.add('show');
+    setTimeout(()=>ai.classList.add('show'), 1400);
   }
 
   if(document.fonts && document.fonts.ready){ document.fonts.ready.then(init); }
