@@ -12,8 +12,7 @@
     <meta name="author" content="Hendrik Bogner">
 
     <title>Hendrik Bogner | Brand Manager, Design &amp; AI-WORKFLOW</title>
- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
+
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -21,162 +20,18 @@
     <!-- Custom CSS -->
       <link href="css/main.css" rel="stylesheet">
       <link href="css/hb_style.css" rel="stylesheet">
-     <!-- <link rel="stylesheet" href="css/hero.css">-->
+      <link rel="stylesheet" href="css/hero.css">
       <!-- Google Fonts -->
     <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
     <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
-    <!--  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-	  
+      <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
       <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700&display=swap" rel="stylesheet"> -->
 
 
 <!-- === Signature Hero (Drop‑in) START === -->
 
- <style>
-    #hero-section {
-      --bg1: #123f87;
-      --bg2: #8b2570;
-      --t1: #207cfa;
-      --t2: #ff3cd0;
-      --brandMin: 3.25rem;
-      --brandVW: 14vw;
-      --brandMax: 8rem;
-      --aiOffsetX: 0.00em;
-      --aiOffsetY: 0.11em;
-      --tagOffsetX: 0.05em;
-      --tagOffsetY: 0.13em;
-      --subOffsetX: 0.06em;
-      --subOffsetY: -0.05em;
-      --subTracking: 0.01em;
-      --subMinGap: 0.5ch;
-      --tagMin: 1.1rem;   --tagVW: 4vw; --tagMax: 2.3rem;
-      --subMin: 0.72rem; --subVW: 1.7vw; --subMax: 1rem;
-      --typeScale: 2.80;
-      --tagMobileScale: 1;
-      --subMobileScale: 1;
 
-      height: min(100svh, 700px);   /* statt max-height */
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, var(--bg1), var(--bg2));
-      font-family: 'Montserrat', sans-serif; !important;
-    }
-	 
-	 
-
-    #hero-section .hb-hero {
-      position: relative;
-      width: min(90vw, 700px);
-      height: 100%;                 /* statt min(100svh, 800px) */
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      opacity: 0;
-    }
-
-    #hero-section .hb-hero-brand {
-      color: var(--t1);
-      line-height: 1;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      font-size: calc(clamp(var(--brandMin), var(--brandVW), var(--brandMax)) * var(--typeScale));
-      margin: 0;
-      white-space: nowrap;
-      display: inline-block; /* Zusatz 1: stabil messen */
-    }
-
-    #hero-section .hb-hero-ai {
-      position: absolute;
-      left: 0;
-      top: 0;
-      color: var(--t2);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .8s ease;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      z-index: 1; /* Zusatz 2: Layer unter Tagline/Subline */
-      will-change: left, top;
-    }
-    #hero-section .hb-hero-ai.show { opacity: 1; }
-
-    #hero-section .hb-hero-tagline {
-      position: absolute;
-      left: 0;
-      top: 0;
-      margin: 0;
-      font-weight: 800;
-      color: var(--t2);
-      white-space: nowrap;
-      z-index: 3;
-      pointer-events: none;
-      font-size: calc(clamp(var(--tagMin), var(--tagVW), var(--tagMax)) * var(--typeScale) * var(--tagMobileScale));
-      will-change: left, top;
-    }
-
-    #hero-section .hb-hero-subline {
-      position: absolute;
-      left: 0;
-      top: 0;
-      margin: 0;
-      font-weight: 600;
-      font-style: italic;
-      color: #fff;
-      white-space: nowrap;
-      z-index: 2;
-      pointer-events: none;
-      letter-spacing: var(--subTracking);
-      display: flex;
-      flex-wrap: nowrap;
-      justify-content: flex-start;
-      column-gap: var(--subMinGap);
-      font-size: calc(clamp(var(--subMin), var(--subVW), var(--subMax)) * var(--typeScale) * var(--subMobileScale));
-      will-change: left, top;
-    }
-	 
-	 
-	 
-	 
-    #hero-section .hb-hero-subline > span { display: inline-block; }
-
-    #hero-section .hb-hero.show { animation: fadeInHero .7s ease forwards; }
-	 
- 	#hero-section .hb-hero-brand,
-	#hero-section .hb-hero-tagline,
-	#hero-section .hb-hero-subline { font-family: 'Montserrat', sans-serif; }
-	 
-    @keyframes fadeInHero { from { opacity: 0; } to { opacity: 1; } }
-	 
-	
-	/* #hero-section .hb-lock { position: relative; display: inline-block; }  NEU */
-	 /* Hero: Lock-Anker – ersetzt die frühere Kurzversion.
-   Zweck: relativer Anker für Tagline/Brand/Subline + vertikale Verschiebung per --lockShiftY (vom JS gesetzt). */
-	#hero-section .hb-lock {
-	  position: relative;
-	  display: inline-block;
-	  transform: translateY(var(--lockShiftY, 0px));
-	  will-change: transform;
-	}
-
-
-	 
-
-    @media (max-width: 600px) {
-      #hero-section {
-        --brandMin: 3.6rem;
-        --brandVW: 20vw;
-        --tagMobileScale: 0.90;
-        --subMobileScale: 0.60;
-        --subMin: 0.82rem;
-        --subVW: 2.2vw;
-        --subMax: 1.05rem;
-        --subMinGap: 0.3ch;
-        --subTracking: 0.008em;
-      }
-    }
-  </style>
 
 
 
@@ -222,21 +77,19 @@
 
 	  
 
-<section id="hero-section" class="section-small">
-  <div class="hb-hero" id="hb-hero">
-    <div class="hb-lock" id="hb-lock">
-      <p class="hb-hero-tagline" id="hb-tagline">SHAPE YOUR BRAND</p>
-      <h1 class="hb-hero-brand" id="hb-brand">
-        BRAND<span id="hb-ai" class="hb-hero-ai">AI</span>
-      </h1>
-      <p class="hb-hero-subline" id="hb-subline" aria-label="BRANDSTRATEGY BRANDDESIGN AI-WORKFLOW">
-        <span>BRANDSTRATEGY - </span>
-        <span>BRANDDESIGN - </span>
-        <span>AI&#8209;WORKFLOW</span>
-      </p>
-    </div>
-  </div>
-</section>
+	  
+      <section id="hero-section" class="section-small">
+        <div class="hb-hero" id="hb-hero">
+          <p class="hb-hero-tagline" id="hb-tagline">SHAPE YOUR BRAND</p>
+          <h1 class="hb-hero-brand" id="hb-brand">BRAND<span id="hb-ai" class="hb-hero-ai">AI</span></h1>
+          <p class="hb-hero-subline" id="hb-subline" aria-label="BRANDSTRATEGY BRANDDESIGN AI-WORKFLOW">
+            <span>BRANDSTRATEGY - </span>
+            <span>BRANDDESIGN - </span>
+            <span>AI&#8209;WORKFLOW</span>
+          </p>
+        </div>
+      </section>
+      
 	  
 	  
 	  
@@ -929,7 +782,7 @@
     <!--<script src="js/text-rotator.min.js"></script>-->
     <!-- Custom Theme JavaScript -->
     <script src="js/main.js"></script>
-   <!-- <script src="js/hero.js" defer></script>-->
+    <script src="js/hero.js" defer></script>
 
 <!-- Carousel -->
     <script>
@@ -984,115 +837,5 @@
 </script>
 	  
 <script>new WOW().init();</script>
-	  
-	  
-	  
-	  <script>
-	(() => {
-  const hero    = document.getElementById('hb-hero');
-  const lock    = document.getElementById('hb-lock');
-  const brand   = document.getElementById('hb-brand');
-  const ai      = document.getElementById('hb-ai');
-  const tagline = document.getElementById('hb-tagline');
-  const subline = document.getElementById('hb-subline');
-  if (!hero || !lock || !brand) return;
-
-  function sizeBrandTo(ratio = 0.96) {
-    const small = matchMedia('(max-width:600px)').matches;
-    if (!small) { brand.style.fontSize = ''; return; }
-    const h = hero.getBoundingClientRect(); if (!h.width) return;
-    brand.style.fontSize = '';
-    const fs = parseFloat(getComputedStyle(brand).fontSize) || 1;
-    const w  = brand.getBoundingClientRect().width || 1;
-    brand.style.fontSize = (fs * (h.width * ratio / w)) + 'px';
-  }
-
-  function findLetterRect(el, ch) {
-    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
-    let n;
-    while ((n = walker.nextNode())) {
-      const i = n.data.indexOf(ch);
-      if (i !== -1) { const r = document.createRange(); r.setStart(n,i); r.setEnd(n,i+1); return r.getBoundingClientRect(); }
-    }
-    return null;
-  }
-
-  function alignPositions() {
-    const fs = parseFloat(getComputedStyle(brand).fontSize) || 1;
-    const rootCS = getComputedStyle(document.getElementById('hero-section') || lock);
-    const v = name => (parseFloat(rootCS.getPropertyValue(name)) || 0) * fs;
-
-    const lockRect  = lock.getBoundingClientRect();
-    const brandRect = brand.getBoundingClientRect();
-
-    // AI am „A“, alles relativ zum Wrapper
-    if (ai) {
-      const aRect = findLetterRect(brand, 'A') || brandRect;
-      ai.style.position = 'absolute';
-      ai.style.left = (aRect.left - lockRect.left + v('--aiOffsetX')) + 'px';
-      ai.style.top  = (aRect.top  - lockRect.top  + v('--aiOffsetY')) + 'px';
-      // z-index kommt aus CSS
-    }
-
-    // Tagline oberhalb der Brand
-    if (tagline) {
-      const tagRect = tagline.getBoundingClientRect();
-      tagline.style.position = 'absolute';
-      tagline.style.left = (brandRect.left - lockRect.left + v('--tagOffsetX')) + 'px';
-      tagline.style.top  = (brandRect.top  - lockRect.top  - tagRect.height + v('--tagOffsetY')) + 'px';
-    }
-
-    // Subline unterhalb der Brand
-    if (subline) {
-      subline.style.position = 'absolute';
-      subline.style.left = (brandRect.left - lockRect.left + v('--subOffsetX')) + 'px';
-      subline.style.top  = (brandRect.bottom - lockRect.top + v('--subOffsetY')) + 'px';
-    }
-  }
-
-  function run(){ sizeBrandTo(0.96); alignPositions(); }
-
-  // Start erst nach Font-Load + 2 Frames
-  const nextFrame = () => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
-  async function ensureFonts() {
-    if (document.fonts) {
-      try {
-        await Promise.all([
-          document.fonts.load('600 1em Montserrat'),
-          document.fonts.load('800 1em Montserrat'),
-          document.fonts.ready
-        ]);
-      } catch(_) {}
-    } else {
-      await new Promise(r => window.addEventListener('load', r, { once:true }));
-    }
-  }
-
-  async function init(){
-    await ensureFonts();
-    await nextFrame();
-    run();
-    hero.classList.add('show');
-    if (ai) setTimeout(() => ai.classList.add('show'), 1400);
-
-    // Während der ersten Sekunde nachstabilisieren (falls svh/Clamp sich setzen)
-    const t0 = performance.now();
-    (function settle(){
-      run();
-      if (performance.now() - t0 < 1000) requestAnimationFrame(settle);
-    })();
-  }
-
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once:true }); else init();
-  window.addEventListener('pageshow', e => { if (e.persisted) init(); });
-  window.addEventListener('resize', run);
-  if ('ResizeObserver' in window) { new ResizeObserver(() => run()).observe(brand); new ResizeObserver(() => run()).observe(lock); }
-})();
-
-
-	  
-		  
-  </script>
-	  
   </body>
 </html>
