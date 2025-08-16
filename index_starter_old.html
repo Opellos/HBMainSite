@@ -33,158 +33,149 @@
 <!-- === Signature Hero (Drop‑in) START === -->
 
  <style>
-  /* =========================================================
-   HERO – Vollständige CSS (ohne JS)
-   Voraussetzung in deinem HTML:
-   - <section id="hero-section"> … <div class="hb-hero"> … </div> …
-   - In der H1 das "A" wie folgt ankern:
-     BR <span class="brand-anchor"><span class="brand-A">A</span><span class="hb-hero-ai">AI</span></span> ND
-   ========================================================= */
+    #hero-section {
+      --bg1: #123f87;
+      --bg2: #8b2570;
+      --t1: #207cfa;
+      --t2: #ff3cd0;
+      --brandMin: 3.25rem;
+      --brandVW: 14vw;
+      --brandMax: 8rem;
+      --aiOffsetX: 0.00em;
+      --aiOffsetY: 0.11em;
+      --tagOffsetX: 0.05em;
+      --tagOffsetY: 0.13em;
+      --subOffsetX: 0.06em;
+      --subOffsetY: -0.05em;
+      --subTracking: 0.01em;
+      --subMinGap: 0.5ch;
+      --tagMin: 1.1rem;   --tagVW: 4vw; --tagMax: 2.3rem;
+      --subMin: 0.72rem; --subVW: 1.7vw; --subMax: 1rem;
+      --typeScale: 2.80;
+      --tagMobileScale: 1;
+      --subMobileScale: 1;
 
-/* ------------------------------
-   1) Theme-Variablen & Grundlayout
-   ------------------------------ */
-#hero-section {
-  /* Farben / Verlauf */
-  --bg1: #123f87;
-  --bg2: #8b2570;
-  --t1: #207cfa;
-  --t2: #ff3cd0;
+      height: min(100svh, 700px);   /* statt max-height */
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      font-family: 'Montserrat', sans-serif; !important;
+    }
+	 
+	 
 
-  /* Typo-Größen (Brand/Tag/Subline) */
-  --brandMin: 3.25rem;
-  --brandVW: 14vw;
-  --brandMax: 8rem;
-  --tagMin: 1.1rem;  --tagVW: 4vw;  --tagMax: 2.3rem;
-  --subMin: 0.72rem; --subVW: 1.7vw; --subMax: 1rem;
+    #hero-section .hb-hero {
+      position: relative;
+      width: min(90vw, 700px);
+      height: 100%;                 /* statt min(100svh, 800px) */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      opacity: 0;
+    }
 
-  /* Globale Skalierung – erhöhe für „größer“ (z. B. 2.8 für ~doppelt) */
-  --typeScale: 1.40;
+    #hero-section .hb-hero-brand {
+      color: var(--t1);
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      font-size: calc(clamp(var(--brandMin), var(--brandVW), var(--brandMax)) * var(--typeScale));
+      margin: 0;
+      white-space: nowrap;
+      display: inline-block; /* Zusatz 1: stabil messen */
+    }
 
-  /* Feinoffsets (in em, relativ zur Brand-Schriftgröße) */
-  --aiOffsetX: 0em;
-  --aiOffsetY: 0.00em;
-  --tagOffsetX: 0.05em;
-  --tagOffsetY: 0.13em;
-  --subOffsetX: 0.06em;
-  --subOffsetY: -0.05em;
-  --subTracking: 0.01em;
-  --subMinGap: 0.5ch;
+    #hero-section .hb-hero-ai {
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--t2);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .8s ease;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      z-index: 1; /* Zusatz 2: Layer unter Tagline/Subline */
+      will-change: left, top;
+    }
+    #hero-section .hb-hero-ai.show { opacity: 1; }
 
-  /* Mobile-Skalierung (≤600px) */
-  --tagMobileScale: 1;
-  --subMobileScale: 1;
+    #hero-section .hb-hero-tagline {
+      position: absolute;
+      left: 0;
+      top: 0;
+      margin: 0;
+      font-weight: 800;
+      color: var(--t2);
+      white-space: nowrap;
+      z-index: 3;
+      pointer-events: none;
+      font-size: calc(clamp(var(--tagMin), var(--tagVW), var(--tagMax)) * var(--typeScale) * var(--tagMobileScale));
+      will-change: left, top;
+    }
 
-  /* Layout: Höhe auf 700px deckeln, Hero zentrieren */
-  height: min(100svh, 700px);
-  display: grid;
-  place-items: center;
+    #hero-section .hb-hero-subline {
+      position: absolute;
+      left: 0;
+      top: 0;
+      margin: 0;
+      font-weight: 600;
+      font-style: italic;
+      color: #fff;
+      white-space: nowrap;
+      z-index: 2;
+      pointer-events: none;
+      letter-spacing: var(--subTracking);
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      column-gap: var(--subMinGap);
+      font-size: calc(clamp(var(--subMin), var(--subVW), var(--subMax)) * var(--typeScale) * var(--subMobileScale));
+      will-change: left, top;
+    }
+	 
+	 
+	 
+	 
+    #hero-section .hb-hero-subline > span { display: inline-block; }
 
-  /* Hintergrund & Schriftfamilie nur für den Hero-Bereich */
-  background: linear-gradient(135deg, var(--bg1), var(--bg2));
-  font-family: 'Montserrat', sans-serif;
-}
-
-/* ------------------------------
-   2) Container & Grundausrichtung
-   ------------------------------ */
-#hero-section .hb-hero {
-  position: relative;
-  width: min(90vw, 700px);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;   /* horizontal mittig */
-  justify-content: center; /* vertikal mittig */
-  text-align: center;
-}
-
-/* Falls globale h1/h2-Regeln andere Fonts setzen: hier fest auf Montserrat */
-#hero-section .hb-hero-brand,
-#hero-section .hb-hero-tagline,
-#hero-section .hb-hero-subline { font-family: 'Montserrat', sans-serif; }
-
-/* ------------------------------
-   3) Brand (H1)
-   ------------------------------ */
-#hero-section .hb-hero-brand {
-  color: var(--t1);
-  line-height: 1;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  font-size: calc(clamp(var(--brandMin), var(--brandVW), var(--brandMax)) * var(--typeScale));
-  margin: 0;
-  white-space: nowrap;
-  display: inline-block; /* stabile Mess-/Ausrichtung */
-}
-
-/* „A“-Anker innerhalb der Brand, Referenz für das visuelle "AI" */
-#hero-section .brand-anchor { position: relative; display: inline-block; }
-#hero-section .brand-A      { display: inline-block; }
-
-/* Visuelles "AI" relativ zum A platzieren (em-Offsets, skaliert mit der Brand) */
-#hero-section .hb-hero-ai {
-  position: absolute;
-  left: var(--aiOffsetX);
-  top:  var(--aiOffsetY);
-  color: var(--t2);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  pointer-events: none;
-  z-index: 1; /* unter Tagline/Subline (siehe unten) */
-}
-
-/* ------------------------------
-   4) Tagline (oberhalb) & Subline (unterhalb) – im normalen Fluss
-   ------------------------------ */
-#hero-section .hb-hero-tagline {
-  position: static; /* alte absolute-Positionierungen sicher überschreiben */
-  margin: 0;
-  font-weight: 800;
-  color: var(--t2);
-  white-space: nowrap;
-  font-size: calc(clamp(var(--tagMin), var(--tagVW), var(--tagMax)) * var(--typeScale) * var(--tagMobileScale));
-  transform: translate(var(--tagOffsetX), var(--tagOffsetY)); /* Feinausrichtung */
-  z-index: 3;
-}
-
-#hero-section .hb-hero-subline {
-  position: static;
-  margin: 0;
-  font-weight: 600;
-  font-style: italic;
-  color: #fff;
-  white-space: nowrap;
-  letter-spacing: var(--subTracking);
-  display: flex;
-  column-gap: var(--subMinGap);
-  font-size: calc(clamp(var(--subMin), var(--subVW), var(--subMax)) * var(--typeScale) * var(--subMobileScale));
-  transform: translate(var(--subOffsetX), var(--subOffsetY));
-  z-index: 2;
-}
-#hero-section .hb-hero-subline > span { display: inline-block; }
-
-/* ------------------------------
-   5) Responsive (≤600px) – Variablen feinjustieren
-   ------------------------------ */
-@media (max-width: 600px) {
-  #hero-section {
-    --brandMin: 3.6rem;
-    --brandVW: 20vw;
-
-    --tagMobileScale: 0.90;
-    --subMobileScale: 0.60;
-
-    --subMin: 0.82rem;
-    --subVW: 2.2vw;
-    --subMax: 1.05rem;
-
-    --subMinGap: 0.3ch;
-    --subTracking: 0.008em;
-  }
-}
+    #hero-section .hb-hero.show { animation: fadeInHero .7s ease forwards; }
+	 
+ 	#hero-section .hb-hero-brand,
+	#hero-section .hb-hero-tagline,
+	#hero-section .hb-hero-subline { font-family: 'Montserrat', sans-serif; }
+	 
+    @keyframes fadeInHero { from { opacity: 0; } to { opacity: 1; } }
+	 
+	
+	/* #hero-section .hb-lock { position: relative; display: inline-block; }  NEU */
+	 /* Hero: Lock-Anker – ersetzt die frühere Kurzversion.
+   Zweck: relativer Anker für Tagline/Brand/Subline + vertikale Verschiebung per --lockShiftY (vom JS gesetzt). */
+	#hero-section .hb-lock {
+	  position: relative;
+	  display: inline-block;
+	  transform: translateY(var(--lockShiftY, 0px));
+	  will-change: transform;
+	}
 
 
+	 
+
+    @media (max-width: 600px) {
+      #hero-section {
+        --brandMin: 3.6rem;
+        --brandVW: 20vw;
+        --tagMobileScale: 0.90;
+        --subMobileScale: 0.60;
+        --subMin: 0.82rem;
+        --subVW: 2.2vw;
+        --subMax: 1.05rem;
+        --subMinGap: 0.3ch;
+        --subTracking: 0.008em;
+      }
+    }
   </style>
 
 
@@ -231,31 +222,23 @@
 
 	  
 
-<!-- HERO: Container + Inhalte (passt zu hero.css) -->
 <section id="hero-section" class="section-small">
-  <div class="hb-hero">
-    <!-- Tagline (oben, im Fluss) -->
-    <p class="hb-hero-tagline" id="hb-tagline">SHAPE YOUR BRAND</p>
-
-    <!-- Brand (H1) mit Anker am "A" für das visuelle "AI" -->
-    <h1 class="hb-hero-brand" id="hb-brand">
-      BR
-      <span class="brand-anchor">
-        <span class="brand-A" aria-hidden="true">A</span>
-        <span class="hb-hero-ai" aria-hidden="true">AI</span>
-      </span>
-      ND
-    </h1>
-
-    <!-- Subline (unten, im Fluss) -->
-    <p class="hb-hero-subline" id="hb-subline" aria-label="BRANDSTRATEGY BRANDDESIGN AI-WORKFLOW">
-      <span>BRANDSTRATEGY - </span>
-      <span>BRANDDESIGN - </span>
-      <span>AI&#8209;WORKFLOW</span>
-    </p>
+  <div class="hb-hero" id="hb-hero">
+    <div class="hb-lock" id="hb-lock">
+      <p class="hb-hero-tagline" id="hb-tagline">SHAPE YOUR BRAND</p>
+      <h1 class="hb-hero-brand" id="hb-brand">
+        BRAND<span id="hb-ai" class="hb-hero-ai">AI</span>
+      </h1>
+      <p class="hb-hero-subline" id="hb-subline" aria-label="BRANDSTRATEGY BRANDDESIGN AI-WORKFLOW">
+        <span>BRANDSTRATEGY - </span>
+        <span>BRANDDESIGN - </span>
+        <span>AI&#8209;WORKFLOW</span>
+      </p>
+    </div>
   </div>
 </section>
-
+	  
+	  
 	  
 		
 		
@@ -1035,53 +1018,38 @@
   }
 // --- alignPositions: START ---
 
-function alignPositions() {
-  const fs = parseFloat(getComputedStyle(brand).fontSize) || 1;
-  const rootCS = getComputedStyle(document.getElementById('hero-section') || lock);
-  const v = name => (parseFloat(rootCS.getPropertyValue(name)) || 0) * fs;
+  function alignPositions() {
+    const fs = parseFloat(getComputedStyle(brand).fontSize) || 1;
+    const rootCS = getComputedStyle(document.getElementById('hero-section') || lock);
+    const v = name => (parseFloat(rootCS.getPropertyValue(name)) || 0) * fs;
 
-  const heroRect  = hero.getBoundingClientRect();
-  const lockRect  = lock.getBoundingClientRect();
-  const brandRect = brand.getBoundingClientRect();
+    const lockRect  = lock.getBoundingClientRect();
+    const brandRect = brand.getBoundingClientRect();
 
-  // AI am „A“
-  if (ai) {
-    const aRect = (function findLetterRect(el, ch){
-      const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT); let n;
-      while((n=w.nextNode())){ const i=n.data.indexOf(ch); if(i!==-1){ const r=document.createRange(); r.setStart(n,i); r.setEnd(n,i+1); return r.getBoundingClientRect(); } }
-      return null;
-    })(brand,'A') || brandRect;
-    ai.style.position = 'absolute';
-    ai.style.left = (aRect.left - lockRect.left + v('--aiOffsetX')) + 'px';
-    ai.style.top  = (aRect.top  - lockRect.top  + v('--aiOffsetY')) + 'px';
+    // AI am „A“, alles relativ zum Wrapper
+    if (ai) {
+      const aRect = findLetterRect(brand, 'A') || brandRect;
+      ai.style.position = 'absolute';
+      ai.style.left = (aRect.left - lockRect.left + v('--aiOffsetX')) + 'px';
+      ai.style.top  = (aRect.top  - lockRect.top  + v('--aiOffsetY')) + 'px';
+      // z-index kommt aus CSS
+    }
+
+    // Tagline oberhalb der Brand
+    if (tagline) {
+      const tagRect = tagline.getBoundingClientRect();
+      tagline.style.position = 'absolute';
+      tagline.style.left = (brandRect.left - lockRect.left + v('--tagOffsetX')) + 'px';
+      tagline.style.top  = (brandRect.top  - lockRect.top  - tagRect.height + v('--tagOffsetY')) + 'px';
+    }
+
+    // Subline unterhalb der Brand
+    if (subline) {
+      subline.style.position = 'absolute';
+      subline.style.left = (brandRect.left - lockRect.left + v('--subOffsetX')) + 'px';
+      subline.style.top  = (brandRect.bottom - lockRect.top + v('--subOffsetY')) + 'px';
+    }
   }
-
-  // Tagline oberhalb
-  if (tagline) {
-    const tagRect = tagline.getBoundingClientRect();
-    tagline.style.position = 'absolute';
-    tagline.style.left = (brandRect.left - lockRect.left + v('--tagOffsetX')) + 'px';
-    tagline.style.top  = (brandRect.top  - lockRect.top  - tagRect.height + v('--tagOffsetY')) + 'px';
-  }
-
-  // Subline unterhalb
-  if (subline) {
-    subline.style.position = 'absolute';
-    subline.style.left = (brandRect.left - lockRect.left + v('--subOffsetX')) + 'px';
-    subline.style.top  = (brandRect.bottom - lockRect.top + v('--subOffsetY')) + 'px';
-  }
-
-  // *** Gruppenzentrierung: Brand + Tagline + Subline als Einheit vertikal mittig ***
-  const tagB = tagline ? tagline.getBoundingClientRect() : brandRect;
-  const subB = subline ?  subline.getBoundingClientRect() : brandRect;
-  const groupTop = Math.min(brandRect.top, tagB.top, subB.top);
-  const groupBottom = Math.max(brandRect.bottom, tagB.bottom, subB.bottom);
-  const groupCenter = (groupTop + groupBottom) / 2;
-  const heroCenter  = (heroRect.top + heroRect.bottom) / 2;
-
-  lock.style.setProperty('--lockShiftY', (heroCenter - groupCenter) + 'px');
-}
-
 		
 // --- alignPositions: ENDE ---
 		

@@ -21,6 +21,7 @@
     <!-- Custom CSS -->
       <link href="css/main.css" rel="stylesheet">
       <link href="css/hb_style.css" rel="stylesheet">
+	  <link href="css/hb_brand.css" rel="stylesheet">
      <!-- <link rel="stylesheet" href="css/hero.css">-->
       <!-- Google Fonts -->
     <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
@@ -33,60 +34,56 @@
 <!-- === Signature Hero (Drop‑in) START === -->
 
  <style>
-  /* =========================================================
-   HERO – Vollständige CSS (ohne JS)
-   Voraussetzung in deinem HTML:
-   - <section id="hero-section"> … <div class="hb-hero"> … </div> …
-   - In der H1 das "A" wie folgt ankern:
-     BR <span class="brand-anchor"><span class="brand-A">A</span><span class="hb-hero-ai">AI</span></span> ND
+ /* =========================================================
+   HERO – Finaler Style (ohne JS)  —  EINSETZEN & FERTIG
+   Voraussetzungen im HTML:
+   - H1 ohne Leerzeichen zwischen BR | <span class="brand-anchor">…</span> | ND
+   - Struktur siehe dein letzter HTML-Block (Tagline, H1, Subline)
+   - Montserrat (600/800) im <head> laden
    ========================================================= */
 
 /* ------------------------------
-   1) Theme-Variablen & Grundlayout
+   1) Theme-Variablen & Grundlayout (Desktop-Basis)
    ------------------------------ */
 #hero-section {
   /* Farben / Verlauf */
-  --bg1: #123f87;
-  --bg2: #8b2570;
-  --t1: #207cfa;
-  --t2: #ff3cd0;
+  --bg1: #007bff;
+  --bg2: #ff00ff;
+  --t1: #ff00ff;  /* Blau für BRAND */
+  --t2: #ff1493;  /* Pink für Tagline / AI */
 
-  /* Typo-Größen (Brand/Tag/Subline) */
+  /* Typo-Basis (Desktop) */
   --brandMin: 3.25rem;
   --brandVW: 14vw;
   --brandMax: 8rem;
-  --tagMin: 1.1rem;  --tagVW: 4vw;  --tagMax: 2.3rem;
+  --tagMin: 1.1rem;  --tagVW: 4vw;   --tagMax: 2.3rem;
   --subMin: 0.72rem; --subVW: 1.7vw; --subMax: 1rem;
 
-  /* Globale Skalierung – erhöhe für „größer“ (z. B. 2.8 für ~doppelt) */
-  --typeScale: 1.40;
+  /* Skalierung Desktop (gesamt) */
+  --typeScale: 2.1; /* war 1.4; nach Wunsch groß, aber kontrolliert */
 
-  /* Feinoffsets (in em, relativ zur Brand-Schriftgröße) */
+  /* Feinoffsets (em = skaliert mit BRAND) */
   --aiOffsetX: 0em;
-  --aiOffsetY: 0.00em;
-  --tagOffsetX: 0.05em;
-  --tagOffsetY: 0.13em;
-  --subOffsetX: 0.06em;
-  --subOffsetY: -0.05em;
+  --aiBaselineFix: 0.115em;  /* AI auf Grundlinie „ziehen“ */
+  --tagOffsetX: 0.2em;  --tagOffsetY: 0.6em;
+  --subOffsetX: 0.5em;  --subOffsetY: -0.5em;
   --subTracking: 0.01em;
   --subMinGap: 0.5ch;
 
-  /* Mobile-Skalierung (≤600px) */
+  /* Mobile-Skalierung (Faktoren; werden unten überschrieben/ergänzt) */
   --tagMobileScale: 1;
   --subMobileScale: 1;
 
-  /* Layout: Höhe auf 700px deckeln, Hero zentrieren */
-  height: min(100svh, 700px);
+  /* Layout / Bühne */
+  height: min(100svh, 700px);      /* harte Kappung */
   display: grid;
   place-items: center;
-
-  /* Hintergrund & Schriftfamilie nur für den Hero-Bereich */
   background: linear-gradient(135deg, var(--bg1), var(--bg2));
   font-family: 'Montserrat', sans-serif;
 }
 
 /* ------------------------------
-   2) Container & Grundausrichtung
+   2) Container & Ausrichtung
    ------------------------------ */
 #hero-section .hb-hero {
   position: relative;
@@ -94,18 +91,18 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;   /* horizontal mittig */
-  justify-content: center; /* vertikal mittig */
-  text-align: center;
+  align-items: flex-start;   /* linksbündig wie Referenz */
+  justify-content: center;   /* vertikal mittig */
+  text-align: left;
 }
 
-/* Falls globale h1/h2-Regeln andere Fonts setzen: hier fest auf Montserrat */
+/* Absicherung gegen globale Headline-Styles */
 #hero-section .hb-hero-brand,
 #hero-section .hb-hero-tagline,
 #hero-section .hb-hero-subline { font-family: 'Montserrat', sans-serif; }
 
 /* ------------------------------
-   3) Brand (H1)
+   3) BRAND (H1) + „A/AI“-Anker
    ------------------------------ */
 #hero-section .hb-hero-brand {
   color: var(--t1);
@@ -113,48 +110,56 @@
   font-weight: 800;
   letter-spacing: -0.02em;
   font-size: calc(clamp(var(--brandMin), var(--brandVW), var(--brandMax)) * var(--typeScale));
-  margin: 0;
+  margin: 0;                   /* Abstände fein per Tagline/Subline */
   white-space: nowrap;
-  display: inline-block; /* stabile Mess-/Ausrichtung */
+  display: inline-block;
 }
 
-/* „A“-Anker innerhalb der Brand, Referenz für das visuelle "AI" */
-#hero-section .brand-anchor { position: relative; display: inline-block; }
-#hero-section .brand-A      { display: inline-block; }
+/* „A“-Anker im Textfluss, verhindert Lücken zwischen BR | A | ND */
+#hero-section .brand-anchor { position: relative; display: inline; }
+#hero-section .brand-A      { display: inline; color: inherit; } /* A bleibt blau */
 
-/* Visuelles "AI" relativ zum A platzieren (em-Offsets, skaliert mit der Brand) */
+/* Overlay-"AI": baseline-genau, späteres Einblenden */
 #hero-section .hb-hero-ai {
   position: absolute;
   left: var(--aiOffsetX);
-  top:  var(--aiOffsetY);
+  top: 0;
+  transform: translateY(var(--aiBaselineFix));   /* Grundlinie treffen */
   color: var(--t2);
   font-weight: 800;
   letter-spacing: -0.02em;
   pointer-events: none;
-  z-index: 1; /* unter Tagline/Subline (siehe unten) */
+  z-index: 1;
+  opacity: 0;                                    /* Start unsichtbar */
+  animation: heroAiFade .6s ease .9s forwards;   /* Delay ~0.9s */
 }
+@keyframes heroAiFade { to { opacity: 1; } }
 
 /* ------------------------------
-   4) Tagline (oberhalb) & Subline (unterhalb) – im normalen Fluss
+   4) Tagline & Subline (im Fluss, fein versetzt)
    ------------------------------ */
-#hero-section .hb-hero-tagline {
-  position: static; /* alte absolute-Positionierungen sicher überschreiben */
-  margin: 0;
-  font-weight: 800;
-  color: var(--t2);
-  white-space: nowrap;
-  font-size: calc(clamp(var(--tagMin), var(--tagVW), var(--tagMax)) * var(--typeScale) * var(--tagMobileScale));
-  transform: translate(var(--tagOffsetX), var(--tagOffsetY)); /* Feinausrichtung */
+/* Tagline: kräftig, sichtbar, steuerbar über Offsets */
+#hero-section .hb-hero .hb-hero-tagline {
+  display: inline-block !important;  /* sicheres Transform-Ziel */
+  margin: 0 0 0.15em 0 !important;
+  font-weight: 800 !important;
+  color: var(--t2) !important;
+  white-space: nowrap !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.02em !important;
+  font-size: calc(clamp(var(--tagMin), var(--tagVW), var(--tagMax)) * var(--typeScale)) !important;
+  transform: translate(var(--tagOffsetX), var(--tagOffsetY)) !important;
   z-index: 3;
 }
 
+/* Subline: einzeilig, leicht versetzt, variablenbasiert */
 #hero-section .hb-hero-subline {
   position: static;
   margin: 0;
   font-weight: 600;
   font-style: italic;
   color: #fff;
-  white-space: nowrap;
+  white-space: nowrap;                  /* Visual: keine Umbrüche */
   letter-spacing: var(--subTracking);
   display: flex;
   column-gap: var(--subMinGap);
@@ -165,26 +170,91 @@
 #hero-section .hb-hero-subline > span { display: inline-block; }
 
 /* ------------------------------
-   5) Responsive (≤600px) – Variablen feinjustieren
+   5) Mobile (≤600px) – EIN konsolidierter Block
    ------------------------------ */
 @media (max-width: 600px) {
+	 /* optional: nutzt mehr Bildschirmbreite */
+  #hero-section .hb-hero { width: min(94vw, 700px); }
+	
+  /* Variablen-Anpassungen für Mobile */
   #hero-section {
-    --brandMin: 3.6rem;
-    --brandVW: 20vw;
+    /* Gesamt etwas zurücknehmen, damit Bühne nicht überläuft */
+    --typeScale: 1.6;
 
-    --tagMobileScale: 0.90;
-    --subMobileScale: 0.60;
+    /* BRAND: Basiswerte kleiner, falls Variablen anderswo verwendet werden */
+    --brandMin: 2.6rem;
+    --brandVW: 26vw;
+    --brandMax: 5.6rem;
 
-    --subMin: 0.82rem;
-    --subVW: 2.2vw;
-    --subMax: 1.05rem;
+    /* Tagline/Subline mobil lesbarer */
+    --tagMobileScale: 1.05;
+    --subMobileScale: 0.95;
 
-    --subMinGap: 0.3ch;
-    --subTracking: 0.008em;
+    /* Subline-Grundgrößen etwas anheben, bleibt einzeilig */
+    --subMin: 0.95rem;
+    --subVW: 3.2vw;
+    --subMax: 1.12rem;
+
+    /* AI minimal näher an die Grundlinie */
+    --aiBaselineFix: 0.095em;
+	  
+	  --subOffsetX: 0.5em;  --subOffsetY: -0.95em;
+  }
+
+  /* Harte mobile Klammern – garantiert responsiv, unabhängig von Global-Styles */
+  /* BRAND deutlich größer, einzeilig */
+  #hero-section .hb-hero .hb-hero-brand{
+    font-size: clamp(4rem, 46vw, 9rem) !important;
+    line-height: 1;
+    white-space: nowrap;
+    letter-spacing: -0.018em;
+    margin: 0.05em 0 0.16em;
+  }
+	
+  #hero-section .hb-hero .hb-hero-subline {
+    font-size: clamp(0.9rem, 3.6vw, 1.1rem) !important;  /* einzeilig & lesbar */
+    white-space: nowrap !important;
   }
 }
+ 
+	/* ANIMATIONEN UND TESTS
+	 
+	 
+/* Steuerung */
+#hero-section{
+  --glowColor: rgba(255,20,147,.18); /* Punkpink, sehr subtil */
+  --glowSize: 60vmax;                /* Größe der weichen Aura */
+  --glowDur: 9s;                     /* langsamer Atemzyklus */
+}
 
+/* Träger vorbereiten (hinter den Text, ohne Layout zu ändern) */
+#hero-section .hb-hero{ position: relative; overflow: hidden; }
 
+/* Weiche, wandernde Aura hinter dem Text */
+#hero-section .hb-hero::after{
+  content:"";
+  position: absolute;
+  inset: -25%;
+  background: radial-gradient(closest-side, var(--glowColor) 0%, transparent 70%);
+  filter: blur(28px);
+  opacity: 0;
+  transform: translate(-18%, 12%) scale(.85);
+  animation: heroAmbient var(--glowDur) ease-in-out
+             calc(var(--heroDelay, .45s) + var(--heroDur, .60s)) infinite alternate;
+  pointer-events: none;
+  z-index: 0; /* bleibt hinter Tagline/Brand/Subline */
+}
+
+@keyframes heroAmbient{
+  0%   { opacity: 0.00; transform: translate(-18%, 12%) scale(.85); }
+  50%  { opacity: 0.35; transform: translate(  6%,  0%) scale(1.00); }
+  100% { opacity: 0.18; transform: translate( 22%,-10%) scale(1.10); }
+}
+
+/* Bewegung respektieren */
+@media (prefers-reduced-motion: reduce){
+  #hero-section .hb-hero::after{ animation: none; opacity: 0; }
+}
   </style>
 
 
@@ -231,39 +301,46 @@
 
 	  
 
-<!-- HERO: Container + Inhalte (passt zu hero.css) -->
-<section id="hero-section" class="section-small">
-  <div class="hb-hero">
-    <!-- Tagline (oben, im Fluss) -->
-    <p class="hb-hero-tagline" id="hb-tagline">SHAPE YOUR BRAND</p>
+<!-- HERO: Container + Inhalte -->
 
-    <!-- Brand (H1) mit Anker am "A" für das visuelle "AI" -->
-    <h1 class="hb-hero-brand" id="hb-brand">
-      BR
-      <span class="brand-anchor">
-        <span class="brand-A" aria-hidden="true">A</span>
-        <span class="hb-hero-ai" aria-hidden="true">AI</span>
-      </span>
-      ND
-    </h1>
+	  
+		
+<section id="hero-section">
+  <div class="hb-hero hb-hero--split">
+    <div class="hb-hero-grid">
+      <div class="hb-hero-A">
+        <p class="hb-hero-tagline" id="hb-tagline">SHAPE YOUR BRAND</p>
+        <h1 class="hb-hero-brand" id="hb-brand">
+          BR<span class="brand-anchor"><span class="brand-A">A</span><span class="hb-hero-ai">AI</span></span>ND
+        </h1>
+        <p class="hb-hero-subline" id="hb-subline">
+          <span>BRANDSTRATEGY - </span><span>BRANDDESIGN - </span><span>AI&#8209;WORKFLOW</span>
+        </p>
+      </div>
 
-    <!-- Subline (unten, im Fluss) -->
-    <p class="hb-hero-subline" id="hb-subline" aria-label="BRANDSTRATEGY BRANDDESIGN AI-WORKFLOW">
-      <span>BRANDSTRATEGY - </span>
-      <span>BRANDDESIGN - </span>
-      <span>AI&#8209;WORKFLOW</span>
-    </p>
+      <!-- in .hb-hero-B einfügen -->
+<aside class="hb-hero-B" aria-label="Erklär-Ecke">
+  <h3 class="hb-glass-title">Erklär-Ecke</h3>
+  <p class="hb-glass-text">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
+    sem non arcu aliquet. Curabitur varius augue at nisl bibendum.
+  </p>
+  <p class="hb-glass-text">
+    Duis vitae ligula vitae nunc efficitur dictum. Mauris non nunc ac velit
+    commodo rhoncus.
+  </p>
+</aside>
+
+    </div>
   </div>
 </section>
 
-	  
-		
-		
-	  
-	  
-	  
-	  
-	  
+
+
+
+
+
+
 	  
 	  
 	  

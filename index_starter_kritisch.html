@@ -33,12 +33,9 @@
 <!-- === Signature Hero (Drop‑in) START === -->
 
  <style>
-  /* =========================================================
+ /* =========================================================
    HERO – Vollständige CSS (ohne JS)
-   Voraussetzung in deinem HTML:
-   - <section id="hero-section"> … <div class="hb-hero"> … </div> …
-   - In der H1 das "A" wie folgt ankern:
-     BR <span class="brand-anchor"><span class="brand-A">A</span><span class="hb-hero-ai">AI</span></span> ND
+   (Diese Datei ersetzt deinen vorherigen <style>-Block.)
    ========================================================= */
 
 /* ------------------------------
@@ -58,16 +55,18 @@
   --tagMin: 1.1rem;  --tagVW: 4vw;  --tagMax: 2.3rem;
   --subMin: 0.72rem; --subVW: 1.7vw; --subMax: 1rem;
 
-  /* Globale Skalierung – erhöhe für „größer“ (z. B. 2.8 für ~doppelt) */
-  --typeScale: 1.40;
+  /* CHANGED: größere Skalierung wie im SSS (~doppelt) */
+  --typeScale: 2.1; /* vorher: 1.40 */
 
   /* Feinoffsets (in em, relativ zur Brand-Schriftgröße) */
   --aiOffsetX: 0em;
   --aiOffsetY: 0.00em;
-  --tagOffsetX: 0.05em;
-  --tagOffsetY: 0.13em;
-  --subOffsetX: 0.06em;
-  --subOffsetY: -0.05em;
+  --aiBaselineFix: 0.10em;   /* NEU */	
+  /* CHANGED: Offsets neutralisieren für bündige Ausrichtung */
+  --tagOffsetX: 0.2em;   /* vorher: 0.05em */
+  --tagOffsetY: 0.6em;   /* vorher: 0.13em */
+  --subOffsetX: 0.5em;   /* vorher: 0.06em */
+  --subOffsetY: -0.5em;   /* vorher: -0.05em */
   --subTracking: 0.01em;
   --subMinGap: 0.5ch;
 
@@ -88,16 +87,19 @@
 /* ------------------------------
    2) Container & Grundausrichtung
    ------------------------------ */
+/* Hero-Container: linksbündig ausrichten (statt zentriert) */
+/* Hero linksbündig (statt zentriert) */
 #hero-section .hb-hero {
   position: relative;
   width: min(90vw, 700px);
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;   /* horizontal mittig */
-  justify-content: center; /* vertikal mittig */
-  text-align: center;
+  align-items: flex-start;   /* links */
+  justify-content: center;
+  text-align: left;          /* links */
 }
+
 
 /* Falls globale h1/h2-Regeln andere Fonts setzen: hier fest auf Montserrat */
 #hero-section .hb-hero-brand,
@@ -115,37 +117,46 @@
   font-size: calc(clamp(var(--brandMin), var(--brandVW), var(--brandMax)) * var(--typeScale));
   margin: 0;
   white-space: nowrap;
-  display: inline-block; /* stabile Mess-/Ausrichtung */
+  display: inline-block; /* stabile Inlines */
 }
 
-/* „A“-Anker innerhalb der Brand, Referenz für das visuelle "AI" */
-#hero-section .brand-anchor { position: relative; display: inline-block; }
-#hero-section .brand-A      { display: inline-block; }
+/* Anker im Textfluss, A erbt die blaue Brand-Farbe */
+#hero-section .brand-anchor { position: relative; display: inline; }
+#hero-section .brand-A      { display: inline; color: inherit; } /* vorher: var(--t2) */
 
-/* Visuelles "AI" relativ zum A platzieren (em-Offsets, skaliert mit der Brand) */
+
+
+/* Visuelles "AI" (Overlay) – aktuell deaktiviert, da A die Akzentfarbe trägt */
+/* Overlay-"AI": erscheint zeitversetzt über dem A */
+/* ERSETZT: AI-Overlay baseline-ausgerichtet + Fade-in */
 #hero-section .hb-hero-ai {
   position: absolute;
-  left: var(--aiOffsetX);
-  top:  var(--aiOffsetY);
+  left: var(--aiOffsetX, 0em);
+  top: 0;                                         /* an A-Beginn */
+  transform: translateY(var(--aiBaselineFix));    /* Grundlinie treffen */
   color: var(--t2);
   font-weight: 800;
   letter-spacing: -0.02em;
   pointer-events: none;
-  z-index: 1; /* unter Tagline/Subline (siehe unten) */
+  z-index: 1;
+  opacity: 0;                                     /* erst später sichtbar */
+  animation: heroAiFade .6s ease .9s forwards;    /* Delay ~0.9s */
 }
+@keyframes heroAiFade { to { opacity: 1; } }
 
-/* ------------------------------
-   4) Tagline (oberhalb) & Subline (unterhalb) – im normalen Fluss
+	 
+	 ---------------------------
+   4) Tagline (oben) & Subline (unten) – im Fluss
    ------------------------------ */
+/* Tagline kräftig, gut lesbar */
 #hero-section .hb-hero-tagline {
-  position: static; /* alte absolute-Positionierungen sicher überschreiben */
-  margin: 0;
+  margin: 0 0 0.15em 0;
   font-weight: 800;
-  color: var(--t2);
+  color: var(--t2) !important;     /* Pink sicherstellen */
   white-space: nowrap;
-  font-size: calc(clamp(var(--tagMin), var(--tagVW), var(--tagMax)) * var(--typeScale) * var(--tagMobileScale));
-  transform: translate(var(--tagOffsetX), var(--tagOffsetY)); /* Feinausrichtung */
-  z-index: 3;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: calc(clamp(var(--tagMin), var(--tagVW), var(--tagMax)) * var(--typeScale));
 }
 
 #hero-section .hb-hero-subline {
@@ -162,7 +173,22 @@
   transform: translate(var(--subOffsetX), var(--subOffsetY));
   z-index: 2;
 }
+	 
+	 
 #hero-section .hb-hero-subline > span { display: inline-block; }
+	 
+/* Tagline sicher steuern (Farbe/Größe + Offsets) */
+#hero-section .hb-hero .hb-hero-tagline{
+  display: inline-block !important;                          /* transform wirkt zuverlässig */
+  color: var(--t2) !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.02em !important;
+  font-size: calc(clamp(var(--tagMin), var(--tagVW), var(--tagMax)) * var(--typeScale)) !important;
+  margin: 0 0 0.15em 0 !important;
+  transform: translate(var(--tagOffsetX), var(--tagOffsetY)) !important; /* ← jetzt steuerbar */
+} 
+	 
 
 /* ------------------------------
    5) Responsive (≤600px) – Variablen feinjustieren
@@ -183,7 +209,55 @@
     --subTracking: 0.008em;
   }
 }
+	 
+	 /* Mobile: etwas kleiner, damit es passt */
+@media (max-width: 600px) {
+  #hero-section {
+    --typeScale: 1.0;   /* Desktop 2.8 → Mobile 1.9 */
+    --brandVW: 32vw;    /* Brand schrumpft auf kleinen Screens */
+  }
+}
 
+	 
+@media (max-width: 600px) {
+  #hero-section {
+    /* Skalierung mobil anheben */
+    --typeScale: 1.9;     /* gesamt etwas kleiner als Desktop 2.8 */
+    --brandVW: 28vw;      /* Marke nicht zu dominant */
+
+    /* Tagline/Subline mobil besser lesbar */
+    --tagMobileScale: 1.10;
+    --subMobileScale: 1.00;
+
+    /* Subline-Grundgrößen höher ziehen */
+    --subMin: 0.92rem;
+    --subVW: 3.5vw;
+    --subMax: 1.15rem;
+
+    --subMinGap: 0.35ch;
+    --subTracking: 0.01em;
+
+    /* AI-Baseline mobil leicht korrigieren (siehe Punkt 3) */
+    --aiBaselineFix: 0.10em; /* neu, Desktop-Richtwert */
+  }
+}
+	 
+	@media (max-width: 600px){
+  #hero-section{
+    --typeScale: 1.9;    /* Gesamt */
+    --brandVW: 28vw;
+
+    --tagMobileScale: 1.10;
+    --subMobileScale: 1.15;    /* größer als zuvor */
+
+    /* Subline-Grundgrößen höher */
+    --subMin: 1.05rem;
+    --subVW: 4.2vw;
+    --subMax: 1.25rem;
+  }
+}
+ 
+	 
 
   </style>
 
@@ -231,27 +305,22 @@
 
 	  
 
-<!-- HERO: Container + Inhalte (passt zu hero.css) -->
+<!-- HERO: Container + Inhalte -->
 <section id="hero-section" class="section-small">
   <div class="hb-hero">
     <!-- Tagline (oben, im Fluss) -->
     <p class="hb-hero-tagline" id="hb-tagline">SHAPE YOUR BRAND</p>
 
     <!-- Brand (H1) mit Anker am "A" für das visuelle "AI" -->
-    <h1 class="hb-hero-brand" id="hb-brand">
-      BR
-      <span class="brand-anchor">
-        <span class="brand-A" aria-hidden="true">A</span>
-        <span class="hb-hero-ai" aria-hidden="true">AI</span>
-      </span>
-      ND
-    </h1>
+<h1 class="hb-hero-brand" id="hb-brand">BR<span class="brand-anchor"><span class="brand-A" aria-hidden="true">A</span><span class="hb-hero-ai" aria-hidden="true">AI</span></span>ND</h1>
+
+
 
     <!-- Subline (unten, im Fluss) -->
     <p class="hb-hero-subline" id="hb-subline" aria-label="BRANDSTRATEGY BRANDDESIGN AI-WORKFLOW">
       <span>BRANDSTRATEGY - </span>
       <span>BRANDDESIGN - </span>
-      <span>AI&#8209;WORKFLOW</span>
+      <span>AI &#8209; WORKFLOW</span>
     </p>
   </div>
 </section>
