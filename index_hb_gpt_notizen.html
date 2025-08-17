@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hendrik Bogner — Brand Manager | Marke · Design · KI</title>
+  <meta name="description" content="Brand Management mit Design- & KI-Fokus – Marke, Designsysteme und AI-Workflows aus einer Hand." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Hendrik Bogner — Brand Manager | Marke · Design · KI">
+  <meta property="og:description" content="Brand Management mit Design- & KI-Fokus – für Unternehmen, die Wirkung suchen.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+
+  <style>
+    :root {
+      --magenta: #FF3CA6;
+      --violet: #8A2FFF;
+      --cyan:    #00E5FF;
+      --ink:     #0E0E14;
+      --sand:    #F6F0E7;
+      --glass:   rgba(255,255,255,.08);
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--sand);
+      color: var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    a { color: var(--ink); text-decoration: none; }
+    .container { width: min(1200px, 92vw); margin: 0 auto; }
+    /* Nav */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(246,240,231,.85);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(14,14,20,.06);
+    }
+    .nav .row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .8rem 0;
+    }
+    .nav a.brand { font-weight: 700; letter-spacing: .02em;}
+    .menu { display: flex; gap: 1.2rem; }
+    .menu a { opacity: .9; }
+    .menu a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 3px; }
+
+    /* Hero */
+    .hero {
+      background: radial-gradient(1000px 500px at 20% 0%, var(--cyan), transparent 70%),
+                  radial-gradient(900px 500px at 80% 0%, var(--magenta), transparent 70%),
+                  linear-gradient(135deg, var(--violet), var(--magenta) 45%, var(--cyan));
+      color: white;
+    }
+    .hero .container { padding: 80px 0 56px; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .9fr;
+      gap: 28px;
+      align-items: center;
+    }
+    .hb-hero-tagline { font-weight: 700; letter-spacing: .08em; opacity:.9; margin:0 0 .4rem; }
+    .hb-hero-brand { font-size: clamp(42px, 8vw, 120px); line-height: .9; margin: 0 0 .4rem; font-weight: 900; letter-spacing: .02em;}
+    .hb-hero-brand .brand-anchor { position: relative; display: inline-block; }
+    .hb-hero-brand .brand-A { display:inline-block; transform: translateY(-.06em); }
+    .hb-hero-brand .hb-hero-ai { display:inline-block; margin-left:.06em; background: linear-gradient(90deg, var(--magenta), var(--cyan)); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 20px rgba(0,0,0,.12); }
+    .hb-hero-subline { font-size: clamp(16px, 2.4vw, 22px); max-width: 48ch; margin: .5rem 0 1rem; opacity:.95;}
+    .btn { display:inline-block; padding:.9rem 1.2rem; border-radius:14px; font-weight:700; border:1px solid rgba(255,255,255,.5); }
+    .btn-dark { background: rgba(0,0,0,.25); color:#fff; }
+    .btn-dark:hover{ background: rgba(0,0,0,.35); }
+    .hb-hero-B {
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.22);
+      box-shadow: 0 10px 40px rgba(0,0,0,.18);
+      border-radius: 18px;
+      padding: 18px 18px 22px;
+    }
+    .hb-glass-title { margin: 0 0 .6rem; font-size: 18px; letter-spacing:.02em; }
+    .hb-glass-text { margin: 0 0 .8rem; line-height: 1.5; opacity:.95; }
+    .hb-link { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
+
+    main { background: var(--sand); }
+    section { padding: 56px 0; }
+    h2 { font-size: clamp(28px, 4vw, 40px); margin: 0 0 12px; }
+    .h2-special { letter-spacing:.01em;}
+    p { line-height: 1.65; }
+
+    .section-cta { margin-top: 1rem; }
+    .btn-ghost {
+      border:1px solid rgba(14,14,20,.2);
+      background: white;
+      box-shadow: 0 4px 16px rgba(0,0,0,.06);
+    }
+    .btn-ghost:hover { border-color: rgba(14,14,20,.35); }
+
+    /* Alternierende Hintergründe */
+    .bg-offwhite { background: var(--sand); }
+    .bg-white { background: #fff; }
+    .bg-dark { background: #0E0E14; color: #fff; }
+
+    /* Cards grid */
+    .grid-3 {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+    }
+    .card {
+      background: #fff; border:1px solid rgba(14,14,20,.08); border-radius: 16px;
+      padding: 18px; box-shadow: 0 8px 28px rgba(14,14,20,.06);
+    }
+    .small { font-size: .95rem; opacity:.85; }
+
+    /* Footer form */
+    .contact-grid { display:grid; grid-template-columns: 1.1fr .9fr; gap:28px; }
+    .contact-box {
+      background: linear-gradient(135deg, rgba(255,60,166,.14), rgba(0,229,255,.10));
+      border: 1px solid rgba(14,14,20,.12);
+      border-radius: 18px; padding: 18px;
+    }
+    form input, form textarea {
+      width: 100%; padding: .8rem 1rem; border-radius: 12px; border:1px solid rgba(14,14,20,.2); background:#fff;
+    }
+    form textarea { min-height: 140px; }
+    form .row { display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .muted { opacity:.7; font-size:.95rem; }
+    .logos { display:flex; flex-wrap:wrap; gap: 22px; align-items:center; justify-content:center; opacity:.8;}
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .hero-grid, .contact-grid, .grid-3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a class="sr-only" href="#main">Zum Inhalt springen</a>
+
+  <header class="nav" aria-label="Hauptnavigation">
+    <div class="container row">
+      <a href="#top" class="brand">Hendrik Bogner</a>
+      <nav class="menu" aria-label="Menü">
+        <a href="#profil">Profil</a>
+        <a href="#projekte">Projekte</a>
+        <a href="#brandai">Brand+AI</a>
+        <a href="#connect">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="top" aria-label="Hero-Section">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <p class="hb-hero-tagline" id="hb-tagline">Marke. Design. KI.</p>
+          <h1 class="hb-hero-brand" id="hb-brand">
+            BR<span class="brand-anchor"><span class="brand-A"></span><span class="hb-hero-ai">AI</span></span>ND
+          </h1>
+          <p class="hb-hero-subline">Brand Management mit Design- &amp; KI-Fokus – für Unternehmen, die Wirkung suchen.</p>
+          <a href="#connect" class="btn btn-dark btn-hero" aria-label="Projekt besprechen – führt zum Kontaktbereich">Projekt besprechen</a>
+        </div>
+
+        <aside class="hb-hero-B" aria-label="Kurz-Bio">
+          <h3 class="hb-glass-title">Kurz-Bio</h3>
+          <p class="hb-glass-text">
+            Ich bin Hendrik Bogner, Brand Manager mit Erfahrung in Markenstrategie, Designsystemen und KI-Workflows.
+            Ich überführe Strategie in Umsetzung – hands-on, datenbewusst, markenkonform.
+          </p>
+          <a href="#connect" class="hb-link">Termin anfragen</a>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <main id="main">
+    <!-- PROFIL -->
+    <section id="profil" class="bg-white" aria-label="Profil">
+      <div class="container">
+        <h2 class="h2-special">Marke. Design. KI. – Ihr Vorteil: 3 in 1</h2>
+        <p class="small">
+          T-shaped Kompetenz: Strategie in der Tiefe, Design & KI in der Breite.
+          Fokus auf saubere Übergaben, messbare Effekte und skalierbare Systeme.
+        </p>
+        <div class="section-cta">
+          <a class="btn btn-ghost" href="#connect" aria-label="Erstgespräch anfragen – führt zum Kontaktbereich">Erstgespräch anfragen</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJEKTE TEASER -->
+    <section id="projekte" class="bg-offwhite" aria-label="Projekte">
+      <div class="container">
+        <h2>Projekte</h2>
+        <div class="grid-3">
+          <article class="card">
+            <img src="assets/case-1.webp" loading="lazy" alt="Case-Visual 1" width="600" height="340"/>
+            <h3>Strategie sichtbar machen</h3>
+            <p class="small">Klares Messaging, Designsysteme und KPIs im Blick – für schnelleres Go-to-Market.</p>
+          </article>
+          <article class="card">
+            <img src="assets/case-2.webp" loading="lazy" alt="Case-Visual 2" width="600" height="340"/>
+            <h3>3D Design &amp; Renders</h3>
+            <p class="small">Produktstufen von Konzept bis Serie – konsistent in Stil &amp; Sprache.</p>
+          </article>
+          <article class="card">
+            <img src="assets/case-3.webp" loading="lazy" alt="Case-Visual 3" width="600" height="340"/>
+            <h3>Automatisierte Content-Pipelines</h3>
+            <p class="small">KI-gestützte Prozesse für Tempo und Qualität in der Produktion.</p>
+          </article>
+        </div>
+        <div class="section-cta">
+          <a class="btn btn-ghost" href="#connect">Projekt besprechen</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- BRAND + AI -->
+    <section id="brandai" class="bg-dark" aria-label="Brand + AI">
+      <div class="container">
+        <h2>Vision &amp; Konzept — BRAND+AI</h2>
+        <p class="small">Strategie, Design &amp; KI in einer Person gebündelt. Vom Gedanken zur Umsetzung mit klarer Rollout-Planung.</p>
+        <div class="section-cta">
+          <a class="btn btn-dark" href="#connect">Workshop anfragen</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- BRANDSTRATEGY -->
+    <section id="brandstrategy" class="bg-white" aria-label="Brandstrategy">
+      <div class="container">
+        <h2>BRANDSTRATEGY</h2>
+        <p>Brandmanagement 4.0: datenbasiert, iterativ und auf Wirkung ausgerichtet. Architektur, Positionierung, Story &amp; Guidelines sind auf Rollout-Fähigkeit optimiert.</p>
+        <ul>
+          <li>Strategie als laufender Prozess</li>
+          <li>Designentscheidungen mit Metriken koppeln</li>
+          <li>Klarer ROI-Fokus</li>
+        </ul>
+        <div class="section-cta">
+          <a class="btn btn-ghost" href="#connect">Erstgespräch anfragen</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- BRANDDESIGN -->
+    <section id="branddesign" class="bg-offwhite" aria-label="Branddesign">
+      <div class="container">
+        <h2>BRANDDESIGN</h2>
+        <p>Visuelle Systeme, die sich skalieren lassen: Komponenten statt Einzel-Layouts. Templates, Bibliotheken und klare Regeln für schnelleren Rollout.</p>
+        <ul>
+          <li>Designsysteme als Infrastruktur</li>
+          <li>Templates &amp; Komponenten</li>
+          <li>Konsistenz in allen Kanälen</li>
+        </ul>
+        <div class="section-cta">
+          <a class="btn btn-ghost" href="#connect">Projekt besprechen</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI-WORKFLOW -->
+    <section id="aiworkflow" class="bg-white" aria-label="AI-Workflow">
+      <div class="container">
+        <h2>AI-WORKFLOW</h2>
+        <p>Von der Idee zur Umsetzung – neue Geschwindigkeit und Teamarbeit. Automatisierung für wiederholbare Qualität.</p>
+        <ul>
+          <li>Ingest → Create → QA → Deploy</li>
+          <li>Parallelarbeit statt linear</li>
+          <li>Tempo bei gleichbleibender Qualität</li>
+        </ul>
+        <div class="section-cta">
+          <a class="btn btn-ghost" href="#connect">Workshop anfragen</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONNECT THE DOTS -->
+    <section id="connectthedots" class="bg-offwhite" aria-label="Connect the Dots">
+      <div class="container">
+        <h2>Connect The Dots</h2>
+        <p>Technologie als Verstärker, Marke als Konstante. Von einzelnen Punkten zu messbaren Effekten in Markt &amp; Kommunikation.</p>
+      </div>
+    </section>
+
+    <!-- LOGOS -->
+    <section class="bg-white" aria-label="Referenzen">
+      <div class="container">
+        <div class="logos" aria-label="Logo-Zeile">
+          <img src="assets/logo-1.svg" loading="lazy" alt="Logo 1" height="28">
+          <img src="assets/logo-2.svg" loading="lazy" alt="Logo 2" height="28">
+          <img src="assets/logo-3.svg" loading="lazy" alt="Logo 3" height="28">
+          <img src="assets/logo-4.svg" loading="lazy" alt="Logo 4" height="28">
+          <img src="assets/logo-5.svg" loading="lazy" alt="Logo 5" height="28">
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="connect" class="hero" aria-label="Kontaktbereich">
+      <div class="container">
+        <div class="contact-grid">
+          <div>
+            <h2>Auf der Suche nach einem starken Gedanken, der Unternehmen inspiriert und Kund:innen überzeugt?</h2>
+            <p class="muted">Kontakt direkt:</p>
+            <ul>
+              <li>E-Mail: <a href="mailto:hello@hendrikbogner.de" aria-label="E-Mail an Hendrik Bogner senden">hello@hendrikbogner.de</a></li>
+              <li>LinkedIn: <a href="https://www.linkedin.com/in/hendrikbogner" target="_blank" rel="noopener">/in/hendrikbogner</a></li>
+              <li>Antwortzeit: in der Regel innerhalb von 24 Stunden</li>
+            </ul>
+            <div class="section-cta">
+              <a class="btn btn-dark" href="#top">Zurück nach oben</a>
+            </div>
+          </div>
+          <div class="contact-box">
+            <h3>Projekt besprechen</h3>
+            <form>
+              <div class="row">
+                <p><label for="name">Name</label><br><input id="name" name="name" placeholder="Name"></p>
+                <p><label for="email">E-Mail</label><br><input id="email" name="email" type="email" placeholder="name@unternehmen.de"></p>
+              </div>
+              <p><label for="msg">Nachricht</label><br><textarea id="msg" name="msg" placeholder="Worum geht es?"></textarea></p>
+              <p><button class="btn btn-dark" type="submit">Jetzt Kontakt aufnehmen</button></p>
+              <p class="muted">Mit dem Absenden erklärst du dich mit der Verarbeitung der Angaben zum Zweck der Kontaktaufnahme einverstanden.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-offwhite" aria-label="Footer">
+    <div class="container" style="padding: 28px 0;">
+      <small>© <span id="y"></span> Hendrik Bogner</small>
+    </div>
+  </footer>
+
+  <script defer>
+    // Jahr
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
