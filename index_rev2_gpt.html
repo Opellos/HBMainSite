@@ -8,7 +8,7 @@
 
     <link rel="shortcut icon" href="favicon.ico">
 
-    <meta name="description" content="Hendrik Bogner: Brand Manager mit KI-Expertise – Strategie, Design und AI-Workflows für starke Marken.">
+    <meta name="description" content="HeadnB – Markenstrategie, Branddesign und KI‑Workflows. Klare Positionierung, konsistente Designsysteme und zügiges Prototyping für starke Marken.">
     <meta name="author" content="Hendrik Bogner">
 
     <title>Hendrik Bogner | Brand Manager, Design &amp; AI-WORKFLOW</title>
@@ -21,202 +21,26 @@
     <!-- Custom CSS -->
       <link href="css/main.css" rel="stylesheet">
       <link href="css/hb_style.css" rel="stylesheet">
-     <!-- <link rel="stylesheet" href="css/hero.css">-->
+	  <link href="css/hb_hero.css" rel="stylesheet">
+	 
+	  
+    
       <!-- Google Fonts -->
     <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
     <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
-    <!--  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 	  
-      <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700&display=swap" rel="stylesheet"> -->
+   
 
 
 <!-- === Signature Hero (Drop‑in) START === -->
 
  <style>
- /* =========================================================
-   HERO – Finaler Style (ohne JS)  —  EINSETZEN & FERTIG
-   Voraussetzungen im HTML:
-   - H1 ohne Leerzeichen zwischen BR | <span class="brand-anchor">…</span> | ND
-   - Struktur siehe dein letzter HTML-Block (Tagline, H1, Subline)
-   - Montserrat (600/800) im <head> laden
-   ========================================================= */
-
-/* ------------------------------
-   1) Theme-Variablen & Grundlayout (Desktop-Basis)
-   ------------------------------ */
-#hero-section {
-  /* Farben / Verlauf */
-  --bg1: #123f87;
-  --bg2: #8b2570;
-  --t1: #207cfa;  /* Blau für BRAND */
-  --t2: #ff3cd0;  /* Pink für Tagline / AI */
-
-  /* Typo-Basis (Desktop) */
-  --brandMin: 3.25rem;
-  --brandVW: 14vw;
-  --brandMax: 8rem;
-  --tagMin: 1.1rem;  --tagVW: 4vw;   --tagMax: 2.3rem;
-  --subMin: 0.72rem; --subVW: 1.7vw; --subMax: 1rem;
-
-  /* Skalierung Desktop (gesamt) */
-  --typeScale: 2.1; /* war 1.4; nach Wunsch groß, aber kontrolliert */
-
-  /* Feinoffsets (em = skaliert mit BRAND) */
-  --aiOffsetX: 0em;
-  --aiBaselineFix: 0.115em;  /* AI auf Grundlinie „ziehen“ */
-  --tagOffsetX: 0.2em;  --tagOffsetY: 0.6em;
-  --subOffsetX: 0.5em;  --subOffsetY: -0.5em;
-  --subTracking: 0.01em;
-  --subMinGap: 0.5ch;
-
-  /* Mobile-Skalierung (Faktoren; werden unten überschrieben/ergänzt) */
-  --tagMobileScale: 1;
-  --subMobileScale: 1;
-
-  /* Layout / Bühne */
-  height: min(100svh, 700px);      /* harte Kappung */
-  display: grid;
-  place-items: center;
-  background: linear-gradient(135deg, var(--bg1), var(--bg2));
-  font-family: 'Montserrat', sans-serif;
-}
-
-/* ------------------------------
-   2) Container & Ausrichtung
-   ------------------------------ */
-#hero-section .hb-hero {
-  position: relative;
-  width: min(90vw, 700px);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;   /* linksbündig wie Referenz */
-  justify-content: center;   /* vertikal mittig */
-  text-align: left;
-}
-
-/* Absicherung gegen globale Headline-Styles */
-#hero-section .hb-hero-brand,
-#hero-section .hb-hero-tagline,
-#hero-section .hb-hero-subline { font-family: 'Montserrat', sans-serif; }
-
-/* ------------------------------
-   3) BRAND (H1) + „A/AI“-Anker
-   ------------------------------ */
-#hero-section .hb-hero-brand {
-  color: var(--t1);
-  line-height: 1;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  font-size: calc(clamp(var(--brandMin), var(--brandVW), var(--brandMax)) * var(--typeScale));
-  margin: 0;                   /* Abstände fein per Tagline/Subline */
-  white-space: nowrap;
-  display: inline-block;
-}
-
-/* „A“-Anker im Textfluss, verhindert Lücken zwischen BR | A | ND */
-#hero-section .brand-anchor { position: relative; display: inline; }
-#hero-section .brand-A      { display: inline; color: inherit; } /* A bleibt blau */
-
-/* Overlay-"AI": baseline-genau, späteres Einblenden */
-#hero-section .hb-hero-ai {
-  position: absolute;
-  left: var(--aiOffsetX);
-  top: 0;
-  transform: translateY(var(--aiBaselineFix));   /* Grundlinie treffen */
-  color: var(--t2);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0;                                    /* Start unsichtbar */
-  animation: heroAiFade .6s ease .9s forwards;   /* Delay ~0.9s */
-}
-@keyframes heroAiFade { to { opacity: 1; } }
-
-/* ------------------------------
-   4) Tagline & Subline (im Fluss, fein versetzt)
-   ------------------------------ */
-/* Tagline: kräftig, sichtbar, steuerbar über Offsets */
-#hero-section .hb-hero .hb-hero-tagline {
-  display: inline-block !important;  /* sicheres Transform-Ziel */
-  margin: 0 0 0.15em 0 !important;
-  font-weight: 800 !important;
-  color: var(--t2) !important;
-  white-space: nowrap !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.02em !important;
-  font-size: calc(clamp(var(--tagMin), var(--tagVW), var(--tagMax)) * var(--typeScale)) !important;
-  transform: translate(var(--tagOffsetX), var(--tagOffsetY)) !important;
-  z-index: 3;
-}
-
-/* Subline: einzeilig, leicht versetzt, variablenbasiert */
-#hero-section .hb-hero-subline {
-  position: static;
-  margin: 0;
-  font-weight: 600;
-  font-style: italic;
-  color: #fff;
-  white-space: nowrap;                  /* Visual: keine Umbrüche */
-  letter-spacing: var(--subTracking);
-  display: flex;
-  column-gap: var(--subMinGap);
-  font-size: calc(clamp(var(--subMin), var(--subVW), var(--subMax)) * var(--typeScale) * var(--subMobileScale));
-  transform: translate(var(--subOffsetX), var(--subOffsetY));
-  z-index: 2;
-}
-#hero-section .hb-hero-subline > span { display: inline-block; }
-
-/* ------------------------------
-   5) Mobile (≤600px) – EIN konsolidierter Block
-   ------------------------------ */
-@media (max-width: 600px) {
-	 /* optional: nutzt mehr Bildschirmbreite */
-  #hero-section .hb-hero { width: min(94vw, 700px); }
-	
-  /* Variablen-Anpassungen für Mobile */
-  #hero-section {
-    /* Gesamt etwas zurücknehmen, damit Bühne nicht überläuft */
-    --typeScale: 1.6;
-
-    /* BRAND: Basiswerte kleiner, falls Variablen anderswo verwendet werden */
-    --brandMin: 2.6rem;
-    --brandVW: 26vw;
-    --brandMax: 5.6rem;
-
-    /* Tagline/Subline mobil lesbarer */
-    --tagMobileScale: 1.05;
-    --subMobileScale: 0.95;
-
-    /* Subline-Grundgrößen etwas anheben, bleibt einzeilig */
-    --subMin: 0.95rem;
-    --subVW: 3.2vw;
-    --subMax: 1.12rem;
-
-    /* AI minimal näher an die Grundlinie */
-    --aiBaselineFix: 0.095em;
-	  
-	  --subOffsetX: 0.5em;  --subOffsetY: -0.95em;
-  }
-
-  /* Harte mobile Klammern – garantiert responsiv, unabhängig von Global-Styles */
-  /* BRAND deutlich größer, einzeilig */
-  #hero-section .hb-hero .hb-hero-brand{
-    font-size: clamp(4rem, 46vw, 9rem) !important;
-    line-height: 1;
-    white-space: nowrap;
-    letter-spacing: -0.018em;
-    margin: 0.05em 0 0.16em;
-  }
-	
-  #hero-section .hb-hero .hb-hero-subline {
-    font-size: clamp(0.9rem, 3.6vw, 1.1rem) !important;  /* einzeilig & lesbar */
-    white-space: nowrap !important;
-  }
-}
  
-	 
+
+/* ------------------------------
+  Raum für temoräre css
+   ------------------------------ */
 
   </style>
 
@@ -250,7 +74,8 @@
              <!-- <li><a href="#">Hendrik Bogner <span class="caret"></span></a></li>-->
 				<li><a class="page-scroll" href="#focus">FOCUS</a></li>
 				<li><a class="page-scroll" href="#works">WORKS</a></li>
-            </ul>
+            <li><a class="page-scroll" href="#about">ABOUT</a></li>
+</ul>
             <ul class="nav navbar-nav pull-right">
 				<li><a class="page-scroll" href="#vision1">BRAND+AI</a></li>
 				<li><a class="page-scroll" href="#connect">CONNECT</a></li>
@@ -269,27 +94,48 @@
 	  
 		
 <section id="hero-section">
-  <div class="hb-hero">
-    <p class="hb-hero-tagline">SHAPE YOUR BRAND</p>
-    <h1 class="hb-hero-brand">
-      BR<span class="brand-anchor"><span class="brand-A">A</span><span class="hb-hero-ai">AI</span></span>ND
-    </h1>
-    <p class="hb-hero-subline"><span>BRANDSTRATEGY-</span><span>BRANDDESIGN-</span><span>AI &#8209;WORKFLOW</span></p>
+  <div class="hb-hero hb-hero--split">
+    <div class="hb-hero-grid">
+      <div class="hb-hero-A">
+        <p class="hb-hero-tagline" id="hb-tagline">SHAPE YOUR BRAND</p>
+        <h1 class="hb-hero-brand" id="hb-brand">
+          BR<span class="brand-anchor"><span class="brand-A">A</span><span class="hb-hero-ai">AI</span></span>ND
+        </h1>
+        <p class="hb-hero-subline" id="hb-subline">
+         <span>BRAND STRATEGY · </span><span>BRAND DESIGN · </span><span style="white-space:nowrap">AI<span style="display:inline-block;margin:0 .02em">-</span>WORKFLOW</span>
+        </p>
+      </div>
+    </div>
   </div>
-</section>		
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
+</section>
+<section class="section-small" id="intro">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-12">
+        <h2 class="h2-special text-left">Wozu Sie hier sind</h2>
+        <p class="lead text-left hb-intro">
+          Sie haben von mir gehört, etwas gelesen—oder ich bin auf Sie zugekommen.
+          Hier finden Sie kompakt: <strong>wer ich bin</strong>, wie ich <strong>arbeite</strong> und
+          wie <strong>Markenstrategie, Branddesign und KI‑Workflows</strong> zusammenwirken.
+        </p>
+        <ul class="hb-intro-list">
+          <li>Was HeadnB bietet: <em>Markenstrategie · Branddesign · KI‑Workflow</em></li>
+          <li>Wie wir starten: Erstgespräch, schnelle Einschätzung, klare nächste Schritte</li>
+        </ul>
+        <div class="btn-group intro-cta" role="group" aria-label="Intro-CTAs" style="margin-top:1rem">
+          <a class="btn btn-primary btn-cta" href="#connect">Projekt besprechen</a>
+          <a class="btn btn-default btn-cta" href="mailto:creative@hendrik-bogner.de">E‑Mail senden</a>
+          <a class="btn btn-link btn-cta" href="#about">Über mich</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+	 	  
 	  
 
     <!-- Video-Bio-Frame -->
-<section class="section-small">
+<section class="section-small" id="about">
     <div class="container text-center box-shadow offset showcase" style="">
       <div class="row v-center">
 		  <!-- Showreel Video -->
@@ -325,10 +171,7 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <h2 class="h2-special text-left">
-          T-Shaped Professional<br>
-          <span class="italic-inline" style="white-space: nowrap;">Marke, Design &amp; KI</span>
-        </h2>
+        <h2 class="h2-special text-left">Markenstrategie · Branddesign · KI‑Workflow
       </div>
     </div>
 
@@ -343,7 +186,7 @@
               <path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"></path>
             </svg>
           </div>        
-			<h3 class="mark-highlight">Brandmanagement</h3>
+			<h3 class="mark-highlight">Markenstrategie</h3>
           <p>
             Markenführung bedeutet, Profil zu zeigen – klar, konsequent und mit Substanz.<br><br>
             Ich begleite Marken mit unternehmerischem Blick und helfe dabei, sie zu schärfen, zu positionieren und gezielt weiterzuentwickeln. Dazu gehört auch, wie sie in Partnerschaften, Kooperationen oder gemeinsamen Auftritten souverän und unverwechselbar bleiben. Ob Aufbau, Neuausrichtung oder Weiterführung: Ich unterstütze Marken dabei, aus ihrer Haltung heraus zu führen – sichtbar, wirksam und eigenständig.
@@ -385,7 +228,16 @@
         </div>
       </div>
     </div>
-  </div>
+  
+        <div class="row" style="margin-top:1rem">
+          <div class="col-12 text-left">
+            <div class="btn-group" role="group" aria-label="Focus-CTAs">
+              <a class="btn btn-primary btn-cta" href="#connect">Erstes Gespräch</a>
+              <a class="btn btn-default btn-cta" href="mailto:creative@hendrik-bogner.de">E‑Mail senden</a>
+            </div>
+          </div>
+        </div>
+        </div>
 </section>
 
 
@@ -400,7 +252,12 @@
         <div class="mb-4">
           <h2 class="mark-highlight mark-highlight-works">Portfolio &amp; Projekte</h2>
         </div>
-        <p class="mx-auto w-100 text-justify"></p> <!-- Leer, falls Text hinzukommt; ansonsten entfernen -->
+        <p class="mx-auto w-100 text-justify"></p>
+        <div class="btn-group" role="group" aria-label="Works-CTAs" style="margin-top:1rem">
+          <a class="btn btn-primary btn-cta" href="#connect">Projekt anfragen</a>
+          <a class="btn btn-default btn-cta" href="mailto:creative@hendrik-bogner.de">E‑Mail senden</a>
+        </div>
+         <!-- Leer, falls Text hinzukommt; ansonsten entfernen -->
       </div>
       
       <!-- Rechter Bereich: Subtext und Fließtext -->
@@ -931,7 +788,7 @@
             </ul>
           </div>
           <div class="col-lg-4 col-lg-offset-1">
-            <h5 class="no-pad">© Hendrik Bogner<a href=""><i class=""></i>2025</a>
+            <h5 class="no-pad">© Hendrik Bogner<a href=""><i class=""></i> 2025</a>
             </h5>
           </div>
 <!--          <div class="col-lg-3 col-lg-offset-1">
@@ -951,21 +808,17 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- Plugin JavaScript -->
     <script src="js/jquery.easing.min.js"></script>
-    <!--<script src="js/jquery.countdown.min.js"></script>-->
+
     <script src="js/device.min.js"></script>
     <script src="js/form.min.js"></script>
-   <!-- <script src="js/jquery.placeholder.min.js"></script>-->
-   <!-- <script src="js/jquery.shuffle.min.js"></script>-->
+
     <script src="js/jquery.parallax.min.js"></script>
-    <!--<script src="js/jquery.circle-progress.min.js"></script>-->
-   <!-- <script src="js/jquery.swipebox.min.js"></script>-->
+
     <script src="js/wow.min.js"></script>
     <script src="js/jquery.smartmenus.js"></script>
-    <!--<script src="js/text-rotator.min.js"></script>-->
-    <!-- Custom Theme JavaScript -->
-    <script src="js/main.js"></script>
-   <!-- <script src="js/hero.js" defer></script>-->
 
+    <script src="js/main.js"></script>
+  
 <!-- Carousel -->
     <script>
       $(document).ready(function() {
@@ -1022,132 +875,7 @@
 	  
 	 <!-- Hero Postioner  -->	   
 	  
- <script>
-	(() => {
-  const hero    = document.getElementById('hb-hero');
-  const lock    = document.getElementById('hb-lock');
-  const brand   = document.getElementById('hb-brand');
-  const ai      = document.getElementById('hb-ai');
-  const tagline = document.getElementById('hb-tagline');
-  const subline = document.getElementById('hb-subline');
-  if (!hero || !lock || !brand) return;
-
-  function sizeBrandTo(ratio = 0.96) {
-    const small = matchMedia('(max-width:600px)').matches;
-    if (!small) { brand.style.fontSize = ''; return; }
-    const h = hero.getBoundingClientRect(); if (!h.width) return;
-    brand.style.fontSize = '';
-    const fs = parseFloat(getComputedStyle(brand).fontSize) || 1;
-    const w  = brand.getBoundingClientRect().width || 1;
-    brand.style.fontSize = (fs * (h.width * ratio / w)) + 'px';
-  }
-
-  function findLetterRect(el, ch) {
-    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
-    let n;
-    while ((n = walker.nextNode())) {
-      const i = n.data.indexOf(ch);
-      if (i !== -1) { const r = document.createRange(); r.setStart(n,i); r.setEnd(n,i+1); return r.getBoundingClientRect(); }
-    }
-    return null;
-  }
-// --- alignPositions: START ---
-
-function alignPositions() {
-  const fs = parseFloat(getComputedStyle(brand).fontSize) || 1;
-  const rootCS = getComputedStyle(document.getElementById('hero-section') || lock);
-  const v = name => (parseFloat(rootCS.getPropertyValue(name)) || 0) * fs;
-
-  const heroRect  = hero.getBoundingClientRect();
-  const lockRect  = lock.getBoundingClientRect();
-  const brandRect = brand.getBoundingClientRect();
-
-  // AI am „A“
-  if (ai) {
-    const aRect = (function findLetterRect(el, ch){
-      const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT); let n;
-      while((n=w.nextNode())){ const i=n.data.indexOf(ch); if(i!==-1){ const r=document.createRange(); r.setStart(n,i); r.setEnd(n,i+1); return r.getBoundingClientRect(); } }
-      return null;
-    })(brand,'A') || brandRect;
-    ai.style.position = 'absolute';
-    ai.style.left = (aRect.left - lockRect.left + v('--aiOffsetX')) + 'px';
-    ai.style.top  = (aRect.top  - lockRect.top  + v('--aiOffsetY')) + 'px';
-  }
-
-  // Tagline oberhalb
-  if (tagline) {
-    const tagRect = tagline.getBoundingClientRect();
-    tagline.style.position = 'absolute';
-    tagline.style.left = (brandRect.left - lockRect.left + v('--tagOffsetX')) + 'px';
-    tagline.style.top  = (brandRect.top  - lockRect.top  - tagRect.height + v('--tagOffsetY')) + 'px';
-  }
-
-  // Subline unterhalb
-  if (subline) {
-    subline.style.position = 'absolute';
-    subline.style.left = (brandRect.left - lockRect.left + v('--subOffsetX')) + 'px';
-    subline.style.top  = (brandRect.bottom - lockRect.top + v('--subOffsetY')) + 'px';
-  }
-
-  // *** Gruppenzentrierung: Brand + Tagline + Subline als Einheit vertikal mittig ***
-  const tagB = tagline ? tagline.getBoundingClientRect() : brandRect;
-  const subB = subline ?  subline.getBoundingClientRect() : brandRect;
-  const groupTop = Math.min(brandRect.top, tagB.top, subB.top);
-  const groupBottom = Math.max(brandRect.bottom, tagB.bottom, subB.bottom);
-  const groupCenter = (groupTop + groupBottom) / 2;
-  const heroCenter  = (heroRect.top + heroRect.bottom) / 2;
-
-  lock.style.setProperty('--lockShiftY', (heroCenter - groupCenter) + 'px');
-}
-
-		
-// --- alignPositions: ENDE ---
-		
-
-		
-  function run(){ sizeBrandTo(0.96); alignPositions(); }
-
-  // Start erst nach Font-Load + 2 Frames
-  const nextFrame = () => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
-  async function ensureFonts() {
-    if (document.fonts) {
-      try {
-        await Promise.all([
-          document.fonts.load('600 1em Montserrat'),
-          document.fonts.load('800 1em Montserrat'),
-          document.fonts.ready
-        ]);
-      } catch(_) {}
-    } else {
-      await new Promise(r => window.addEventListener('load', r, { once:true }));
-    }
-  }
-
-  async function init(){
-    await ensureFonts();
-    await nextFrame();
-    run();
-    hero.classList.add('show');
-    if (ai) setTimeout(() => ai.classList.add('show'), 1400);
-
-    // Während der ersten Sekunde nachstabilisieren (falls svh/Clamp sich setzen)
-    const t0 = performance.now();
-    (function settle(){
-      run();
-      if (performance.now() - t0 < 1000) requestAnimationFrame(settle);
-    })();
-  }
-
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once:true }); else init();
-  window.addEventListener('pageshow', e => { if (e.persisted) init(); });
-  window.addEventListener('resize', run);
-  if ('ResizeObserver' in window) { new ResizeObserver(() => run()).observe(brand); new ResizeObserver(() => run()).observe(lock); }
-})();
-
-
-	  
-		  
-  </script>
+ 
 	  
   </body>
 </html>

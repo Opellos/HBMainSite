@@ -155,7 +155,7 @@
 
   /* BRAND: harte mobile Klammer (wirklich responsiv) */
   #hero-section .hb-hero .hb-hero-brand {
-    font-size: clamp(4rem, 46vw, 9rem) !important;
+    font-size: clamp(4rem, 46vw, 8.8rem) !important;
     line-height: 1;
     white-space: nowrap;
     letter-spacing: -0.018em;

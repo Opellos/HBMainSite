@@ -14,11 +14,12 @@
   --splitGapVW: 3vw;
   --splitGapMax: 32px;
 
-  --glassBg: rgba(255,255,255,.06);
-  --glassBorder: rgba(255,255,255,.22);
+/* Variablen */
+	--glassBg: rgba(255,255,255,0.06);
+	--glassBorder: rgba(255,255,255,0.22);
   --glassBlur: 10px;
   --glassSat: 120%;
-  --glassShadow: 0 10px 30px rgba(0,0,0,.12);
+  --glassShadow: 0 10px 30px rgba(0,0,0,0.12);
 }
 
 /* ------------------------------
@@ -52,7 +53,8 @@
   box-shadow: var(--glassShadow);
   -webkit-backdrop-filter: blur(var(--glassBlur)) saturate(var(--glassSat));
   backdrop-filter: blur(var(--glassBlur)) saturate(var(--glassSat));
-  color: rgba(255,255,255,.92);
+  /* Glasbox */
+	color: rgba(255,255,255,0.92);
   animation: glassIn .6s ease
              calc(var(--heroDelay, .45s) + var(--heroDur, .60s) + .10s)
              both;                                /* sanftes Aufpoppen */
@@ -64,7 +66,7 @@
 /* Fallback, falls kein backdrop-filter verfügbar */
 @supports not ((backdrop-filter: blur(0)) or (-webkit-backdrop-filter: blur(0))){
   #hero-section .hb-hero--split .hb-hero-B{
-    background: rgba(255,255,255,.14);          /* etwas dichter für Lesbarkeit */
+   background: rgba(255,255,255,0.14);          /* etwas dichter für Lesbarkeit */
   }
 }
 
@@ -73,11 +75,14 @@
   content:"";
   position:absolute; inset:1px; border-radius: inherit;
   pointer-events:none; z-index:-1;
-  background:
-    radial-gradient(120% 80% at 20% 0%,
-      rgba(255,255,255,.20) 0%, rgba(255,255,255,0) 55%),
-    radial-gradient(120% 80% at 80% 100%,
-      rgba(255,20,147,.12) 0%, rgba(255,20,147,0) 60%);
+ /* ::after Lichtsaum */
+background:
+  radial-gradient(120% 80% at 20% 0%, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0) 55%),
+  radial-gradient(120% 80% at 80% 100%, rgba(255,20,147,0.12) 0%, rgba(255,20,147,0) 60%);
+	
+	
+	
+	
 }
 
 /* Typo in der Glasbox */
@@ -93,7 +98,8 @@
   margin: 0 0 .8em 0;
   font-weight: 600;
   line-height: 1.5;
-  color: rgba(255,255,255,.9);
+ /* Text in Glasbox */
+color: rgba(255,255,255,0.9);
   font-size: clamp(.9rem, 1.9vw, 1.05rem);
 }
 
