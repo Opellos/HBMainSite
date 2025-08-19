@@ -1,6 +1,6 @@
 @charset "utf-8";
 /* =========================================================
-Dienstag, 19. August 2025 12:22 RECOVER VON WD 1.2.22 Dienstag, 18. August 2025 
+Dienstag, 19. August 2025 12:19
    ------------------------------ */
 #hero-section {
   /* Farben / Verlauf */
@@ -148,7 +148,7 @@ Dienstag, 19. August 2025 12:22 RECOVER VON WD 1.2.22 Dienstag, 18. August 2025
 
   /* BRAND: harte mobile Klammer (wirklich responsiv) */
   #hero-section .hb-hero .hb-hero-brand {
-    font-size: clamp(4rem, 46vw, 9rem) !important;
+    font-size: clamp(4rem, 46vw, 8.8rem) !important;
     line-height: 1;
     white-space: nowrap;
     letter-spacing: -0.018em;
@@ -194,6 +194,8 @@ Dienstag, 19. August 2025 12:22 RECOVER VON WD 1.2.22 Dienstag, 18. August 2025
   #hero-section .hb-hero-ai { animation: none; opacity: 1; }
   #hero-section .hb-hero::after { animation: none; opacity: 0; }
 }
+
+
 
 /* Font-Fix: erzwungen Montserrat im gesamten Hero */
 #hero-section,

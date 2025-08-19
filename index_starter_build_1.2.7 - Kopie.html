@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="de"><head>
+<html lang="de">
+  <head>
     <meta charset="utf-8">
     <!-- <meta name="robots" content="noindex, nofollow"> -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,51 +35,36 @@
  <style>
 
 /* ------------------------------
-
+   1) Theme-Variablen & Grundlayout (Desktop-Basis)
    ------------------------------ */
 
  </style>
-	  
 
+<!-- nach <link rel="stylesheet" href="hb_brand.css"> -->
 <style id="hb-hero-split-override">
-  @media (min-width:900px){
-    /* Wrapper breiter & zentriert */
-	#hero-section .hb-hero.hb-hero--split{
-	  width:min(92vw,1200px) !important;
-	  max-width:1200px !important;
-	  margin:0 auto !important;
-	  --typeScale: 1.5; /* verkleinert BRAND/Tagline/Subline im Split */
-	}
-
-
-    /* 30/70-Layout */
-    #hero-section .hb-hero.hb-hero--split > .hb-hero-grid{
-      display:grid !important;
-      grid-template-columns:minmax(0,4fr) minmax(0,6fr) !important; /* 30 | 70 */
-      gap:clamp(16px,2vw,40px);
-      width:100% !important;
+  /* Hero: 30/70 erzwingen, unabhängig von Tiefe & bestehendem Split */
+  @media (min-width: 900px) {
+    /* trifft, wenn der Modifier vorhanden ist … */
+    #hero-section .hb-hero.hb-hero--split .hb-hero-grid,
+    /* … und falls nicht, trotzdem */
+    #hero-section .hb-hero .hb-hero-grid {
+      display: grid !important;
+      grid-template-columns: minmax(0,30%) minmax(0,70%) !important; /* 30 | 70 */
+      gap: var(--splitGap, clamp(16px, 2vw, 40px)) !important;
+      grid-auto-flow: row dense;
     }
 
-    /* Kinder dürfen schrumpfen, lange Wörter umbrechen */
-    #hero-section .hb-hero.hb-hero--split > .hb-hero-grid > *{
-      min-width:0 !important;
-      overflow-wrap:anywhere;
+    /* WICHTIG: Grid-Kinder dürfen schrumpfen, sonst "drückt" großer Inhalt die Spalten auf */
+    #hero-section .hb-hero .hb-hero-grid > * {
+      min-width: 0 !important;
+      overflow-wrap: anywhere;
     }
 
-    /* A links, B rechts erzwingen */
-    #hero-section .hb-hero.hb-hero--split > .hb-hero-grid > :nth-child(1){ grid-column:1 !important; }
-    #hero-section .hb-hero.hb-hero--split > .hb-hero-grid > :nth-child(2){ grid-column:2 !important; }
-
-    /* Visual sicher einkapseln (ohne Innenleben zu ändern) */
-    #hero-section .hb-hero.hb-hero--split .hb-hero-A{ overflow:hidden; }
+    /* Erstes/zweites Kind fest auf Spalte 1/2 */
+    #hero-section .hb-hero .hb-hero-grid > :nth-child(1) { grid-column: 1 !important; }
+    #hero-section .hb-hero .hb-hero-grid > :nth-child(2) { grid-column: 2 !important; }
   }
 </style>
-
-
-
-
-
-
 
 
 
@@ -130,43 +116,33 @@
 		
 <section id="hero-section">
   <div class="hb-hero hb-hero--split">
-    <!-- Grid-Wrapper für 40/60 -->
     <div class="hb-hero-grid">
-
-      <!-- 40%: VISUAL (Tagline / BRAND / Subline) -->
       <div class="hb-hero-A">
         <p class="hb-hero-tagline" id="hb-tagline">SHAPE YOUR BRAND</p>
-
-        <!-- H1 ohne Whitespaces zwischen BR | Anchor | ND -->
         <h1 class="hb-hero-brand" id="hb-brand">
-          BR<span class="brand-anchor"><span class="brand-A" aria-hidden="true">A</span><span class="hb-hero-ai" aria-hidden="true">AI</span></span>ND
+          BR<span class="brand-anchor"><span class="brand-A">A</span><span class="hb-hero-ai">AI</span></span>ND
         </h1>
-
-        <!-- Subline: einzeilig, mit geschütztem Bindestrich -->
-        <p class="hb-hero-subline" id="hb-subline" aria-label="BRAND STRATEGY · BRAND DESIGN · AI-WORKFLOW">
-          <span>BRAND STRATEGY · </span>
-          <span>BRAND DESIGN · </span>
-          <span>AI&#8209;WORKFLOW</span>
+       <p class="hb-hero-subline" id="hb-subline">
+         <span>BRAND STRATEGY · </span><span>BRAND DESIGN · </span><span style="white-space:nowrap">AI<span style="display:inline-block;margin:0 .02em">-</span>WORKFLOW</span>
         </p>
       </div>
 
-      <!-- 60%: GLAS (Info-Box) -->
-      <aside class="hb-hero-B hb-glass" aria-labelledby="hb-glass-title">
-        <h3 id="hb-glass-title" class="hb-glass-title">Info</h3>
-        <p class="hb-glass-text">
-          Ich bin Hendrik Bogner, Brand Manager mit Erfahrung in Markenstrategie, Designsystemen und KI-Workflows.
-          Ich überführe Strategie in Umsetzung – hands-on, datenbewusst, markenkonform.
-        </p>
-        <p class="hb-glass-text">
-          <a href="#kontakt" class="hb-cta" aria-label="Termin anfragen">Termin anfragen</a>
-        </p>
-        <p class="hb-glass-text">lorem</p>
-      </aside>
+      <!-- in .hb-hero-B einfügen -->
+<aside class="hb-hero-B" aria-label="Info-Box">
+  <h3 class="">Info</h3>
+  <p class="hb-glass-text">
+   Ich bin Hendrik Bogner, Brand Manager mit Erfahrung in Markenstrategie, Designsystemen und KI-Workflows. Ich überführe Strategie in Umsetzung – hands-on, datenbewusst, markenkonform.
+
+Termin anfragen
+  </p>
+  <p class="hb-glass-text">
+    lorem
+  </p>
+</aside>
 
     </div>
   </div>
 </section>
-
 
 
 
