@@ -18,11 +18,11 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-		<link href="css/main.css" rel="stylesheet">
-		<link href="css/hb_style.css" rel="stylesheet">	  
-		<link href="css/hb_hero.css" rel="stylesheet">
-		<link href="css/hb_brand.css" rel="stylesheet">
-
+      <link href="css/main.css" rel="stylesheet">
+      <link href="css/hb_style.css" rel="stylesheet">	  
+	  <link href="css/hb_hero.css" rel="stylesheet">
+	  <link href="css/hb_brand.css" rel="stylesheet">
+    
       <!-- Google Fonts -->
     <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
     <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
@@ -32,15 +32,272 @@
 
 
 
+
+<style id="hb-hero-split-override">
+	/* heroclaim */
+  @media (min-width:900px){
+    /* Wrapper breiter & zentriert */
+    #hero-section .hb-hero.hb-hero--split{
+      width:min(92vw,1200px) !important;
+      max-width:1200px !important;
+      margin:0 auto !important;
+      --typeScale: 2.0; /* verkleinert BRAND/Tagline/Subline im Split */
+    }
+
+    /* 40/60-Layout */
+    #hero-section .hb-hero.hb-hero--split > .hb-hero-grid{
+      display:grid !important;
+      grid-template-columns:minmax(0,55fr) minmax(0,45fr) !important; /* 40 | 60 */
+      gap:clamp(16px,2vw,40px);
+      width:100% !important;
+    }
+
+    /* Kinder dürfen schrumpfen, lange Wörter umbrechen */
+    #hero-section .hb-hero.hb-hero--split > .hb-hero-grid > *{
+      min-width:0 !important;
+      overflow-wrap:anywhere;
+    }
+
+    /* A links, B rechts erzwingen */
+    #hero-section .hb-hero.hb-hero--split > .hb-hero-grid > :nth-child(1){ grid-column:1 !important; }
+    #hero-section .hb-hero.hb-hero--split > .hb-hero-grid > :nth-child(2){ grid-column:2 !important; }
+
+    /* Visual sicher einkapseln (ohne Innenleben zu ändern) */
+    #hero-section .hb-hero.hb-hero--split .hb-hero-A{ overflow:hidden; }
+
+    /* GLASS vorerst aus */
+    #hero-section .hb-hero.hb-hero--split .hb-hero-B{
+      backdrop-filter:none !important;
+      background:transparent !important;
+      border:none !important;
+      box-shadow:none !important;
+    }
+    #hero-section .hb-hero.hb-hero--split .hb-hero-B::after{ content:none !important; }
+  }
+</style>
+	
+	
+<style id="hb-hero-typography">
+  /* hbTYPO Nur rechte Spalte (.hb-hero-B) auf Hanken – Visual (.hb-hero-A) bleibt Montserrat */
+  #hero-section .hb-hero .hb-hero-B,
+  #hero-section .hb-hero .hb-hero-B *{
+    font-family:"Hanken Grotesk","Hanken",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif !important;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  /* Headings rechts */
+  #hero-section .hb-hero .hb-hero-B h2,
+  #hero-section .hb-hero .hb-hero-B h3{
+    font-weight:200;
+    line-height:1.00;
+    margin:0 0 .5rem;
+    font-size:clamp(3.3rem, 2.2vw, 1.1rem);
+    color:#fff;
+    text-wrap:balance;
+  }
+
+  /* Copy rechts */
+  #hero-section .hb-hero .hb-hero-B p{
+    font-weight:300;
+    line-height:1.5;
+    max-width:60ch;
+    font-size:clamp(1.6rem, 1.4vw, 1.6rem);
+    color:rgba(255,255,255,.92);
+    text-wrap:pretty;
+  }
+
+  /* Mobile Feintuning */
+  @media (max-width:600px){
+    #hero-section .hb-hero .hb-hero-B p{ line-height:1.55; }
+  }
+</style>
+	
+	
+	
+<style id="hb-hero-cta">
+  /* ===========================================================
+     CTA (rechts im Hero) – mit Stellschrauben als Variablen
+     -----------------------------------------------------------
+     ▶ Größe/Rundung/Typo NUR über die Variablen unten steuern.
+     ▶ Farben ziehen aus --top-grad-1/2/3 (oben bereits definiert).
+     =========================================================== */
+
+  /* STELLSCHRAUBEN (einfach anpassen) */
+  #hero-section{
+    --cta-padding-y: 2.2rem;   /* ↑/↓ Gesamthöhe des Buttons */
+    --cta-padding-x: 2.6rem;   /* → Gesamtsbreite / horizontale Luft */
+    --cta-radius: 14px;         /* Eckradius (Gehrung) – kleiner = kantiger */
+    --cta-gap: .55rem;          /* Abstand Icon/Text (falls Icon genutzt) */
+
+    --cta-font-weight: 600;     /* 500–700 je nach gewünschter Präsenz */
+    --cta-font-size-min: 1.05rem;  /* min Größe */
+    --cta-font-size-fluid: 1.35vw; /* fließend mit Viewport */
+    --cta-font-size-max: 1.8rem;  /* max Größe */
+
+    /* Schatten-Presets (optional feintunen) */
+    --cta-shadow-1:        0 10px 24px rgba(0,0,0,.28);
+    --cta-shadow-2:        0  2px  0 rgba(255,255,255,.12) inset;
+    --cta-shadow-1-hover:  0 14px 30px rgba(0,0,0,.32);
+    --cta-shadow-2-hover:  0  2px  0 rgba(255,255,255,.16) inset;
+    --cta-shadow-1-active: 0  8px 18px rgba(0,0,0,.25);
+    --cta-shadow-2-active: 0  1px  0 rgba(255,255,255,.12) inset;
+  }
+
+  /* BUTTON-LOOK */
+  #hero-section .hb-hero .hb-hero-B .hb-cta{
+    display:inline-flex;
+    align-items:center;
+    gap:var(--cta-gap);
+
+    /* Größe & Form */
+    padding:var(--cta-padding-y) var(--cta-padding-x);
+    border-radius:var(--cta-radius);
+
+    /* Typografie */
+    font-weight:var(--cta-font-weight);
+    font-size:clamp(var(--cta-font-size-min), var(--cta-font-size-fluid), var(--cta-font-size-max));
+    line-height:1;                 /* kompakter, echter Button */
+    letter-spacing:.01em;
+    text-decoration:none;
+
+    /* Farben (Gradient nutzt deine Top-Farben; Fallbacks inklusive) */
+    color:#fff;
+    background:linear-gradient(
+      135deg,
+      var(--top-grad-1, #2d5eff),
+      var(--top-grad-2, #7d32df) 50%,
+      var(--top-grad-3, #ff4bc0) 85%
+    );
+
+    /* Tiefe */
+    box-shadow:var(--cta-shadow-1), var(--cta-shadow-2);
+    margin-top:.85rem;             /* Abstand zur Copy */
+    transform:translateZ(0);       /* schärfere Rendering-Kante */
+  }
+
+  /* INTERAKTION */
+  #hero-section .hb-hero .hb-hero-B .hb-cta:hover{
+    transform:translateY(-2px);
+    filter:saturate(1.075);
+    box-shadow:var(--cta-shadow-1-hover), var(--cta-shadow-2-hover);
+  }
+  #hero-section .hb-hero .hb-hero-B .hb-cta:active{
+    transform:translateY(0);
+    box-shadow:var(--cta-shadow-1-active), var(--cta-shadow-2-active);
+  }
+  #hero-section .hb-hero .hb-hero-B .hb-cta:focus-visible{
+    outline:none;
+    box-shadow:
+      0 0 0 3px rgba(255,255,255,.85),
+      0 0 0 6px rgba(125,50,223,.45);
+  }
+
+  /* RESPONSIVE – am Handy etwas kompakter */
+  @media (max-width:600px){
+    #hero-section{
+      --cta-padding-y: 1.2rem;
+      --cta-padding-x: 1.2rem;
+      --cta-font-size-min: 1.2rem;
+      --cta-font-size-fluid: 3.6vw;
+      --cta-font-size-max: 1.10rem;
+    }
+  }
+
+  /* BARRIEREFREI – weniger Bewegung wenn gewünscht */
+  @media (prefers-reduced-motion: reduce){
+    #hero-section .hb-hero .hb-hero-B .hb-cta,
+    #hero-section .hb-hero .hb-hero-B .hb-cta:hover{
+      transform:none;
+      filter:none;
+    }
+  }
+</style>
+
+
+	
+	
+	
+	
+
+<style id="hb-site-gradient">
+  /* === Optik Steuerung === */
+  :root{
+    /* Oben dominiert dieser Verlauf (deine Farben) */
+    --top-grad-1:#2d5eff;
+    --top-grad-2:#7d32df;
+    --top-grad-3:#ff4bc0;
+
+    /* Weiter unten: "neue" Farben (kannst du frei ändern) */
+    --bottom-cyan:#4E86E1;
+    --bottom-magenta:#EE43D1;
+    --bottom-violet:#AA59E1;
+
+    /* Reichweite / Fade-Längen */
+    --site-gradient-height:260vh;   /* wie weit der Gesamtverlauf mitläuft */
+    --top-gradient-height:70vh;     /* wie weit der TOP-Verlauf sichtbar bleibt */
+  }
+
+  html, body{ min-height:100%; }
+  body{ position:relative; background:transparent; }
+
+  /* UNTERER Layer: „Site“-Verlauf (läuft weit nach unten) */
+  body::before{
+    content:"";
+    position:absolute; top:0; left:0; right:0;
+    height:var(--site-gradient-height);
+    z-index:-2; pointer-events:none;
+    background:
+      radial-gradient(1000px 500px at 20% 0%, var(--bottom-cyan),    transparent 70%),
+      radial-gradient( 900px 500px at 80% 0%, var(--bottom-magenta), transparent 70%),
+      linear-gradient(135deg, var(--bottom-violet), var(--bottom-magenta) 45%, var(--bottom-cyan));
+    background-repeat:no-repeat;
+    /* sanftes Abklingen nach unten */
+    -webkit-mask-image:linear-gradient(to bottom, #000 0, #000 20vh, transparent 240vh);
+            mask-image:linear-gradient(to bottom, #000 0, #000 20vh, transparent 240vh);
+  }
+
+  /* OBERER Layer: dein Top-Verlauf – dominiert oben, fadet aus */
+  body::after{
+    content:"";
+    position:absolute; top:0; left:0; right:0;
+    height:var(--top-gradient-height);
+    z-index:-1; pointer-events:none;
+    background:linear-gradient(135deg, var(--top-grad-1) 0%, var(--top-grad-2) 50%, var(--top-grad-3) 85%);
+    /* blendet den Top-Verlauf nach unten weich aus */
+    -webkit-mask-image:linear-gradient(to bottom, #000 0, #000 32vh, transparent 100%);
+            mask-image:linear-gradient(to bottom, #000 0, #000 32vh, transparent 100%);
+  }
+
+  /* Hero & Sektionen transparent, damit der Hintergrund sichtbar bleibt */
+  #hero-section{ background:transparent !important; }
+
+  /* Ausnahmen behalten ihren eigenen Hintergrund */
+  section:not(#works):not(#action):not(#slider):not(#vision1),
+  .section:not(#works):not(#action):not(#slider):not(#vision1){
+    background-color:transparent !important;
+  }
+
+  /* Optional: lokale Dämpfung (Option 2) */
+  section.fade-overlay{ position:relative; --fade-from:.06; --fade-to:.12; }
+  section.fade-overlay::before{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(180deg, rgba(255,255,255,var(--fade-from)),
+                                       rgba(255,255,255,var(--fade-to)));
+  }
+  /* Presets */
+  section.fade-overlay.fade-weak   { --fade-from:.03; --fade-to:.08; }
+  section.fade-overlay.fade-strong { --fade-from:.12; --fade-to:.24; }
+</style>
+
+
 <!--Hinweise kurz:
 Oben dominiert dein Gradient (body::after), fadet nach ~32 vh aus.
 Darunter liegt der Site-Verlauf (body::before), der weiter unten sichtbar bleibt.
 Stärke/Längen anpassbar über --top-gradient-height, --site-gradient-height und die Mask-Stops.
 Einzelne Bereiche abdämpfen: class="fade-overlay" (optional fade-weak/fade-strong).
 #works, #action, #slider, #vision1 behalten ihren eigenen Hintergrund.-->
-<style> 
-	
-	</style>
+
 
 
 
@@ -540,7 +797,7 @@ Einzelne Bereiche abdämpfen: class="fade-overlay" (optional fade-weak/fade-stro
         <div class="highlight-wrapper">
           <div class="content-row">
             <div class="left-column two-thirds">
-              <h2 class="h2-special_3 text-left bold-italic fontnu">BRAND<wbr> DESIGN</h2>
+              <h2 class="h2-special_3 text-left bold-italic fontnu">BRAND<wbr>DESIGN</h2>
             </div>
             <div class="right-column one-third">
               <h4 class="text-left mark-highlight-sk_3">Visuelle Systeme neu denken – Design als skalierbare Infrastruktur</h4>
@@ -642,7 +899,7 @@ Einzelne Bereiche abdämpfen: class="fade-overlay" (optional fade-weak/fade-stro
           <div class="content-row">
          <div class="left-column two-thirds">
   <h2 class="h2-special_3 text-left bold-italic">
-    <span class="fontblu">Connect</span> 
+    <span class="fontblu">Kontakt</span> 
     <span class="fontnu">The</span> 
     <span class="gradient-text_1">Dots</span>
   </h2>
@@ -849,8 +1106,12 @@ Einzelne Bereiche abdämpfen: class="fade-overlay" (optional fade-weak/fade-stro
     </script>
 	  
 	  
+
 <!-- === Signature Hero (Drop‑in) END === -->
- 
+
+
+
+	  
 <!-- nav bar fixes -->	  
 	  
 <script>

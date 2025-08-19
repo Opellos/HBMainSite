@@ -351,7 +351,6 @@ h5, h6 {
 
 /* START  SESSION CARDS   */
 
-
 /* Karten-Styling */
 /* START SECTION CARDS – angepasst an Referenzdesign */
 
@@ -511,6 +510,24 @@ input, textarea {
 max-height: 30px;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media (max-width: 768px) {
   .content-row {
     flex-direction: column;
@@ -577,6 +594,28 @@ max-height: 30px;
 .navbar-custom .nav li.active a {
   color: #ff3cd0 !important;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* Media Queries (konsolidiert) */
 @media (max-width: 1199px) {
@@ -749,6 +788,21 @@ max-height: 30px;
     margin-top: -40px;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
  /* HB-CSS Migration */
 
@@ -1018,6 +1072,8 @@ section, .section {
 }
 
 
+
+
 #vision4 .right-column.one-third {
     margin-top: 40px 
 }
@@ -1025,15 +1081,14 @@ section, .section {
 
 
 @media (max-width: 768px) {
-#vision4 .right-column.one-third {
- margin-top: -20px; 
-	/*outline: 2px solid red;*/
-	
+  #vision4 .right-column.one-third {
+    margin-top: -20px;
+    /* outline: 2px solid red; */
+  }
 }
 
 
-
-/* ======= MIGRATION  Dienstag, 19. August 2025 21:06===================================================================
+	/* ==========================================================================
    GLOBALER SITE-GRADIENT + SECTION-OVERLAYS
    --------------------------------------------------------------------------
    • Oben dominiert der Top-Gradient (body::after), blendet nach unten aus.
@@ -1100,15 +1155,56 @@ section:not(#works):not(#action):not(#slider):not(#vision1),
   background-color:transparent !important;
 }
 
-/* Option 2: per-Section Dämpfung */
-section.fade-overlay{ position:relative; --fade-from:.06; --fade-to:.12; }
-section.fade-overlay::before{
-  content:""; position:absolute; inset:0; pointer-events:none;
-  background:linear-gradient(180deg, rgba(255,255,255,var(--fade-from)),
-                                     rgba(255,255,255,var(--fade-to)));
+
+/* ========================================================================== */
+/* OPTION 2 — PER-SECTION DÄMPFUNG (FADE OVERLAY)                              */
+/* ----------------------------------------------------------------------------
+   Zweck: Verlauf hinter einzelnen Sektionen abschwächen – OHNE Text zu bleichen
+   Anwendung:
+     <section class="fade-overlay">…</section>
+     <section class="fade-overlay fade-weak">…</section>
+     <section class="fade-overlay fade-strong">…</section>
+     Oder individuell: <section class="fade-overlay" style="--fade-from:.10; --fade-to:.22">…</section>
+   Hinweis:
+     – Overlay liegt UNTER dem Inhalt der Section (z-index geregelt).
+     – Defaults können pro Section via CSS-Variablen überschrieben werden.
+/* ========================================================================== */
+
+section.fade-overlay { 
+  position: relative;                  /* eigener Kontext für das Overlay   */
+  --fade-from: .06;                    /* Default-Deckkraft oben            */
+  --fade-to:   .12;                    /* Default-Deckkraft unten           */
 }
 
-/* Presets */
-section.fade-overlay.fade-weak   { --fade-from:.03; --fade-to:.08; }
-section.fade-overlay.fade-strong { --fade-from:.12; --fade-to:.24; }
+section.fade-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;                          /* ← unter dem Content der Section   */
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255, var(--fade-from)),
+    rgba(255,255,255, var(--fade-to))
+  );
+}
 
+/* Inhalt explizit über das Overlay heben */
+section.fade-overlay > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Presets für schnelle Abstufungen */
+section.fade-overlay.fade-weak   { --fade-from: .03; --fade-to: .08; }
+section.fade-overlay.fade-strong { --fade-from: .12; --fade-to: .24; }
+
+/* ========================================================================== */
+
+	
+	
+	
+
+
+
+	
