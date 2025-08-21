@@ -85,23 +85,33 @@ background:
 	
 }
 
-/* Typo in der Glasbox */
-#hero-section .hb-hero--split .hb-glass-title{
+/* =========================================================
+   NEU  BLOCK – einfügen an derselben Stelle
+   Typo in der Glasbox  |  Clean Build 1.3  |  21 Aug 2025
+   • Headline & Body skalieren sauber per clamp()
+   • !important sichert Priorität ohne #justage
+   ========================================================= */
+
+#hero-section .hb-hero--split .hb-glass-title h2{
   margin: 0 0 .4em 0;
-  font-weight: 800;
+	line-height: 1.2 ;
   letter-spacing: .02em;
   text-transform: uppercase;
   color: var(--t2);
-  font-size: clamp(1rem, 2.4vw, 3.5rem);
+  /* Mobil ≈ 1.6 rem → Desktop 3 rem */
+  font-size: clamp(2.2rem, 4vw, 3rem) !important;
 }
-#hero-section .hb-hero--split .hb-glass-text{
+
+#hero-section .hb-hero--split .hb-glass-text p{
   margin: 0 0 .8em 0;
-  font-weight: 600;
-  line-height: 1.5;
- /* Text in Glasbox */
-color: rgba(255,255,255,0.9);
- /*font-size: clamp(5rem, 7vw, 6rem);*/
+ line-height: 1.2 ;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.9);
+  /* Mobil ≈ 1.2 rem → Desktop 1.5 rem */
+  font-size: clamp(1.6rem, 4vw, 1.5rem) !important;
 }
+
+/* ===== Ende Typo-Override Glasbox – Build 1.3 (21 Aug 2025) ===== */
 
 /* ------------------------------
    Animationen
