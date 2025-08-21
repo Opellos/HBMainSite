@@ -92,7 +92,7 @@ background:
   letter-spacing: .02em;
   text-transform: uppercase;
   color: var(--t2);
-  font-size: clamp(1rem, 2.4vw, 1.3rem);
+  font-size: clamp(1rem, 2.4vw, 3.5rem);
 }
 #hero-section .hb-hero--split .hb-glass-text{
   margin: 0 0 .8em 0;
@@ -100,7 +100,7 @@ background:
   line-height: 1.5;
  /* Text in Glasbox */
 color: rgba(255,255,255,0.9);
-  font-size: clamp(.9rem, 1.9vw, 1.05rem);
+ /*font-size: clamp(5rem, 7vw, 6rem);*/
 }
 
 /* ------------------------------
