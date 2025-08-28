@@ -43,11 +43,10 @@ Dienstag, 19. August 2025 12:22 RECOVER VON WD 1.2.22 Dienstag, 18. August 2025
 
 /* ------------------------------
    2) Container & Ausrichtung + Gruppen-Reveal
-   -------------------------   #justage Freitag, 22. August 2025 15:14 ----- */
+   ------------------------------ */
 #hero-section .hb-hero {
   position: relative;
-  /*width: min(90vw, 700px);*/
- width: min(96vw, 980px);
+  width: min(90vw, 700px);
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -128,26 +127,6 @@ Dienstag, 19. August 2025 12:22 RECOVER VON WD 1.2.22 Dienstag, 18. August 2025
   z-index: 2;
 }
 #hero-section .hb-hero-subline > span { display: inline-block; }
-
-
-/* ------------------------------
-   Desktop (≥601px) – Zusatz
-   ------------------------------ */
-@media (min-width: 601px){
-  /* Bühne breiter, damit BRAND nicht „hakt“ */
-  #hero-section .hb-hero { width: min(96vw, 980px); }
-
-  /* BRAND glatt responsiv (1 Klammer) */
-  #hero-section .hb-hero .hb-hero-brand{
-    font-size: clamp(5rem, 8vw, 12rem) !important;
-    line-height: 1; white-space: nowrap;
-  }
-}
-
-
-
-
-/* Hinweis (wichtig): Achte darauf, dass nach diesen zwei Media-Blöcken keine weitere font-size-Regel für .hb-hero-brand kommt – sonst überschreibt sie das clamp(). */
 
 /* ------------------------------
    5) Mobile (≤600px) – konsolidiert
