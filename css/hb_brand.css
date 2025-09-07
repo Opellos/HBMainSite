@@ -1,5 +1,7 @@
 @charset "utf-8";
 /* =========================================================
+Donnerstag, 28. August 2025 14:59
+
    HERO Split & Glas – final (ersetzt bisherigen Block)
    Ziel: A/B-Grid, rechte Glasbox mit sanfter Animation,
    typografisch Website-Default (kein Montserrat-Zwang).
@@ -116,10 +118,7 @@ background:
 /* ------------------------------
    Animationen
    ------------------------------ */
-@keyframes glassIn{
-  from{ opacity: 0; transform: translateY(10px) scale(.985); }
-  to  { opacity: 1; transform: none; }
-}
+
 
 /* ------------------------------
    Responsive (unter 900px: stapeln)
