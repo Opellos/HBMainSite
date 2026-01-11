@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Signature Hero – Standalone</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg1: #123f87;
+    --bg2: #8b2570;
+    --t1: #207cfa;
+    --t2: #ff3cd0;
+    --brandMin: 3.25rem;
+    --brandVW: 14vw;
+    --brandMax: 8rem;
+    --aiOffsetX: 0.00em;
+    --aiOffsetY: 0.11em;
+    --tagOffsetX: 0.05em;
+    --tagOffsetY: 0.13em;
+    --subOffsetX: 0.06em;
+    --subOffsetY: -0.05em;
+    --subTracking: 0.01em;
+    --subMinGap: 0.5ch;
+    --tagMin: 1.1rem;   --tagVW: 4vw; --tagMax: 2.3rem;
+    --subMin: 0.72rem;--subVW: 1.7vw; --subMax: 1rem;
+    --typeScale: 1.40;
+    --tagMobileScale: 1;
+    --subMobileScale: 1;
+  }
+
+  html, body { height: 100%; margin: 0; }
+  body {
+    display: grid; place-items: center;
+    background: linear-gradient(135deg, var(--bg1), var(--bg2));
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .hero {
+    position: relative;
+    width: min(90vw, 700px);
+    height: min(100vh, 800px);
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    opacity: 0;
+  }
+
+  .brand {
+    color: var(--t1);
+    line-height: 1; font-weight: 800; letter-spacing: -0.02em;
+    font-size: calc(clamp(var(--brandMin), var(--brandVW), var(--brandMax)) * var(--typeScale));
+    margin: 0; white-space: nowrap;
+  }
+
+  .ai {
+    position: absolute; left: 0; top: 0; color: var(--t2); opacity: 0; pointer-events: none; transition: opacity .8s ease;
+    font-weight: 800; letter-spacing: -0.02em;
+  }
+  .ai.show { opacity: 1; }
+
+  .tagline {
+    position: absolute; left: 0; top: 0; margin: 0;
+    font-weight: 800; color: var(--t2); white-space: nowrap; z-index: 3; pointer-events: none;
+    font-size: calc(clamp(var(--tagMin), var(--tagVW), var(--tagMax)) * var(--typeScale) * var(--tagMobileScale));
+  }
+
+  .subline {
+    position: absolute; left: 0; top: 0; margin: 0;
+    font-weight: 600; font-style: italic; color: #fff; white-space: nowrap; z-index: 2; pointer-events: none;
+    letter-spacing: var(--subTracking); display: flex; flex-wrap: nowrap; justify-content: flex-start; column-gap: var(--subMinGap);
+    font-size: calc(clamp(var(--subMin), var(--subVW), var(--subMax)) * var(--typeScale) * var(--subMobileScale));
+  }
+  .subline > span { display: inline-block; }
+
+  .hero.show { animation: fadeInHero .7s ease forwards; }
+  @keyframes fadeInHero { to { opacity: 1; } }
+
+  @media (max-width: 600px) {
+    :root {
+      --brandMin: 3.6rem; --brandVW: 20vw;
+      --tagMobileScale: 0.90;
+      --subMobileScale: 0.60;
+      --subMin: 0.82rem; --subVW: 2.2vw; --subMax: 1.05rem;
+      --subMinGap: 0.3ch; --subTracking: 0.008em;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="hero" id="hero">
+    <p class="tagline" id="tagline">SHAPE YOUR BRAND</p>
+    <h1 class="brand" id="brand">BRAND<span id="ai" class="ai">AI</span></h1>
+    <p class="subline" id="subline" aria-label="BRANDSTRATEGY BRANDDESIGN AI-WORKFLOW">
+      <span>BRANDSTRATEGY - </span>
+      <span>BRANDDESIGN - </span>
+      <span>AI&#8209;WORKFLOW</span>
+    </p>
+  </div>
+<script>
+(function(){
+  const hero    = document.getElementById('hero');
+  const brand   = document.getElementById('brand');
+  const ai      = document.getElementById('ai');
+  const tagline = document.getElementById('tagline');
+  const subline = document.getElementById('subline');
+
+  function sizeBrandTo(ratio=0.96){
+    const small = matchMedia('(max-width:600px)').matches;
+    if(!small){ brand.style.fontSize=''; return; }
+    const h = hero.getBoundingClientRect(); if(!h.width) return;
+    brand.style.fontSize='';
+    const cs = getComputedStyle(brand), fs = parseFloat(cs.fontSize)||1;
+    const w  = brand.getBoundingClientRect().width||1;
+    brand.style.fontSize = (fs * (h.width*ratio / w)) + 'px';
+  }
+
+  function alignPositions(){
+    const cs = getComputedStyle(brand); const fs = parseFloat(cs.fontSize)||1;
+    const text = brand.firstChild; if(!(text && text.nodeType===3)) return;
+    const idxA = brand.textContent.indexOf('A'); if(idxA===-1) return;
+    const rA = document.createRange(); rA.setStart(text, idxA); rA.setEnd(text, idxA+1);
+
+    const aRect = rA.getBoundingClientRect();
+    const heroRect = hero.getBoundingClientRect();
+    const brandRect = brand.getBoundingClientRect();
+
+    const root = getComputedStyle(document.documentElement);
+    const aiX = (parseFloat(root.getPropertyValue('--aiOffsetX'))||0) * fs;
+    const aiY = (parseFloat(root.getPropertyValue('--aiOffsetY'))||0) * fs;
+    ai.style.left = (aRect.left - heroRect.left + aiX) + 'px';
+    ai.style.top  = (aRect.top  - heroRect.top  + aiY) + 'px';
+
+    const tagX = (parseFloat(root.getPropertyValue('--tagOffsetX'))||0) * fs;
+    const tagY = (parseFloat(root.getPropertyValue('--tagOffsetY'))||0) * fs;
+    const tagRect = tagline.getBoundingClientRect();
+    tagline.style.left = (brandRect.left - heroRect.left + tagX) + 'px';
+    tagline.style.top  = (brandRect.top  - heroRect.top  - tagRect.height + tagY) + 'px';
+
+    const subX = (parseFloat(root.getPropertyValue('--subOffsetX'))||0) * fs;
+    const subY = (parseFloat(root.getPropertyValue('--subOffsetY'))||0) * fs;
+    subline.style.left = (brandRect.left - heroRect.left + subX) + 'px';
+    subline.style.top  = (brandRect.bottom - heroRect.top + subY) + 'px';
+  }
+
+  function run(){ sizeBrandTo(0.96); alignPositions(); }
+
+  function init(){
+    run();
+    hero.classList.add('show');
+    setTimeout(()=>ai.classList.add('show'), 1400);
+  }
+
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(init); }
+  else{ window.addEventListener('load', init); }
+
+  window.addEventListener('resize', run);
+  new ResizeObserver(run).observe(hero);
+})();
+</script>
+</body>
+</html>

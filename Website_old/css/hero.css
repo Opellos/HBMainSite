@@ -1,0 +1,115 @@
+#hero-section {
+  --bg1: #123f87;
+  --bg2: #8b2570;
+  --t1: #207cfa;
+  --t2: #ff3cd0;
+  --brandMin: 3.25rem;
+  --brandVW: 14vw;
+  --brandMax: 8rem;
+  --aiOffsetX: 0.00em;
+  --aiOffsetY: 0.11em;
+  --tagOffsetX: 0.05em;
+  --tagOffsetY: 0.13em;
+  --subOffsetX: 0.06em;
+  --subOffsetY: -0.05em;
+  --subTracking: 0.01em;
+  --subMinGap: 0.5ch;
+  --tagMin: 1.1rem;   --tagVW: 4vw; --tagMax: 2.3rem;
+  --subMin: 0.72rem; --subVW: 1.7vw; --subMax: 1rem;
+  --typeScale: 1.40;
+  --tagMobileScale: 1;
+  --subMobileScale: 1;
+
+  min-height: 700px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--bg1), var(--bg2));
+  font-family: 'Montserrat', sans-serif;
+}
+
+#hero-section .hb-hero {
+  position: relative;
+  width: min(90vw, 700px);
+  height: min(100vh, 800px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+}
+
+#hero-section .hb-hero-brand {
+  color: var(--t1);
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: calc(clamp(var(--brandMin), var(--brandVW), var(--brandMax)) * var(--typeScale));
+  margin: 0;
+  white-space: nowrap;
+}
+
+#hero-section .hb-hero-ai {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--t2);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .8s ease;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+#hero-section .hb-hero-ai.show { opacity: 1; }
+
+#hero-section .hb-hero-tagline {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0;
+  font-weight: 800;
+  color: var(--t2);
+  white-space: nowrap;
+  z-index: 3;
+  pointer-events: none;
+  font-size: calc(clamp(var(--tagMin), var(--tagVW), var(--tagMax)) * var(--typeScale) * var(--tagMobileScale));
+}
+
+#hero-section .hb-hero-subline {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0;
+  font-weight: 600;
+  font-style: italic;
+  color: #fff;
+  white-space: nowrap;
+  z-index: 2;
+  pointer-events: none;
+  letter-spacing: var(--subTracking);
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  column-gap: var(--subMinGap);
+  font-size: calc(clamp(var(--subMin), var(--subVW), var(--subMax)) * var(--typeScale) * var(--subMobileScale));
+}
+
+#hero-section .hb-hero-subline > span { display: inline-block; }
+
+#hero-section .hb-hero.show { animation: fadeInHero .7s ease forwards; }
+
+@keyframes fadeInHero { to { opacity: 1; } }
+
+@media (max-width: 600px) {
+  #hero-section {
+    --brandMin: 3.6rem;
+    --brandVW: 20vw;
+    --tagMobileScale: 0.90;
+    --subMobileScale: 0.60;
+    --subMin: 0.82rem;
+    --subVW: 2.2vw;
+    --subMax: 1.05rem;
+    --subMinGap: 0.3ch;
+    --subTracking: 0.008em;
+  }
+}

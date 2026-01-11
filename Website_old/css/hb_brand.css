@@ -1,0 +1,79 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* Split-Layout aktivieren */
+/*#hero-section .hb-hero.hb-hero--split { width: min(92vw, 1200px); }*/
+#hero-section .hb-hero.hb-hero--split { width: min(92vw, 1700px); }
+#hero-section .hb-hero--split .hb-hero-grid{
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr; /* A größer als B */
+  gap: clamp(16px, 3vw, 32px);
+  align-items: center;
+  width: 100%;
+}
+
+/* Glasbox rechts */
+#hero-section .hb-hero--split .hb-hero-B{
+  min-height: clamp(220px, 28vh, 360px);
+  padding: clamp(16px, 2.4vw, 28px);
+  border-radius: 16px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.22);
+  box-shadow: 0 10px 30px rgba(0,0,0,.12);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  backdrop-filter: blur(10px) saturate(120%);
+  color: rgba(255,255,255,.92);
+}
+
+/* Typo in der Glasbox */
+#hero-section .hb-hero--split .hb-glass-title{
+  margin: 0 0 .4em 0;
+  font-weight: 800;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  color: var(--t2);
+  font-size: clamp(1rem, 2.4vw, 1.3rem);
+}
+#hero-section .hb-hero--split .hb-glass-text{
+  margin: 0 0 .8em 0;
+  font-weight: 600;
+  line-height: 1.5;
+  color: rgba(255,255,255,.9);
+  font-size: clamp(.9rem, 1.9vw, 1.05rem);
+}
+
+/* Responsive: unter 900px stapeln (B unter A) */
+@media (max-width: 900px){
+  #hero-section .hb-hero.hb-hero--split{ width: min(94vw, 800px); }
+  #hero-section .hb-hero--split .hb-hero-grid{
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+  #hero-section .hb-hero--split .hb-hero-B{ min-height: auto; }
+}
+
+
+/* Glas-Box: dezentes Aufpoppen + feiner Lichtsaum */
+#hero-section .hb-hero--split .hb-hero-B{
+  position: relative;
+  animation: glassIn .6s ease
+             calc(var(--heroDelay, .45s) + var(--heroDur, .60s) + .10s)
+             both;
+}
+
+/* sanfter Eintritt */
+@keyframes glassIn{
+  from{ opacity:.0; transform: translateY(10px) scale(.985); }
+  to  { opacity:1;  transform: none; }
+}
+
+/* Lichtsaum (innen), sehr subtil */
+#hero-section .hb-hero--split .hb-hero-B::after{
+  content:"";
+  position:absolute; inset:1px; border-radius: inherit;
+  pointer-events:none; z-index:0;
+  background: radial-gradient(120% 80% at 20% 0%,
+              rgba(255,255,255,.20) 0%, rgba(255,255,255,0) 55%)
+              , radial-gradient(120% 80% at 80% 100%,
+              rgba(255,20,147,.12) 0%, rgba(255,20,147,0) 60%);
+}
